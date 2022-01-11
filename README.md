@@ -16,6 +16,14 @@ And now finally install the packages:
 bundle install
 ```
 
+Development
+------------
+You can start a server locally by running:
+```bash
+bundle exec middleman server
+```
+which will start the server on http://localhost:4567
+
 Acknowledgements
 ------------
 This documentation is powered by [slatedocs](https://github.com/slatedocs/slate).
