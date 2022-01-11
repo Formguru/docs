@@ -24,6 +24,14 @@ bundle exec middleman server
 ```
 which will start the server on http://localhost:4567
 
+Deployment
+------------
+You can deploy your committed changes via:
+```bash
+./deploy.sh
+```
+The website will be automatically updated (though sometimes you need to wait a few minutes).
+
 Acknowledgements
 ------------
 This documentation is powered by [slatedocs](https://github.com/slatedocs/slate).
