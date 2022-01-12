@@ -29,9 +29,42 @@ If you would like to integrate and require assistance then please [contact us](h
 
 # Authentication
 
-Authentication with the Guru API occurs using Bearer tokens. Include your authentication token as a request header:
+Authentication with the Guru API occurs using Bearer tokens. You must include your authentication token as a header on each request you make:
 
 `Authorization: Bearer <token>`
+
+```javascript
+axios({
+    method: 'post',
+    url: 'https://guru-prod.us.auth0.com/oauth/token',
+    headers: {
+        'content-type': 'application/x-www-form-urlencoded'
+    }, 
+    data: {
+        client_id: 'YOUR_CLIENT_ID',
+        client_secret: 'YOUR_CLIENT_SECRET',
+        audience: '616de4f3656d0a021bf12acd',
+        grant_type: 'client_credentials'
+    }
+}).then(function (response) {
+    const authToken = response.data.access_token;
+
+    //...
+}).catch(function (error) {
+    //...
+});
+```
+
+Your service will obtain its authentication token using an OAuth Client-Credential Flow.
+If you are a newly-integrating service then you will need to reach out to Guru to have your client credentials created.
+Once you have received these credentials, you will write code that exchanges them for an authentication token when you want to make a request to our API.
+The flow will be:
+
+1. Exchange your client ID and secret with `https://guru-prod.us.auth0.com` for an access token.
+1. Include the access token on each request to the Guru API.
+
+See the example on this page for working code to perform the credential exchange. 
+See [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) for more details on implementing the Client-Credential flow. 
 
 # Videos
 
