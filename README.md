@@ -26,11 +26,7 @@ which will start the server on http://localhost:4567
 
 Deployment
 ------------
-You can deploy your committed changes via:
-```bash
-./deploy.sh
-```
-The website will be automatically updated (though sometimes you need to wait a few minutes).
+Once you merge your changes to `main` they will be automatically deployed via [GitHub Actions](https://github.com/Formguru/docs/actions).
 
 Acknowledgements
 ------------
