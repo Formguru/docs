@@ -402,6 +402,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
         <span class="na">size</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
         <span class="na">domain</span><span class="p">:</span> <span class="dl">'</span><span class="s1">weightlifting</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">activity</span><span class="p">:</span> <span class="dl">'</span><span class="s1">squat</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">repCount</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
         <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-service</span><span class="dl">'</span>
     <span class="p">}</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -457,6 +458,12 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>No</td>
 <td>None</td>
 <td>The category of exercise being performed in the video. See the table below for accepted values.</td>
+</tr>
+<tr>
+<td>repCount</td>
+<td>No</td>
+<td>None</td>
+<td>The number of reps expected to be performed in the video. Omit if unknown.</td>
 </tr>
 <tr>
 <td>activity</td>
