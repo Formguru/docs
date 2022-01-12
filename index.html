@@ -346,9 +346,41 @@ See below to find out how to authenticate your calls and start working with the 
 
 <p>If you would like to integrate and require assistance then please <a href="https://www.formguru.fitness/contact">contact us</a>.</p>
 <h1 id='authentication'>Authentication</h1>
-<p>Authentication with the Guru API occurs using Bearer tokens. Include your authentication token as a request header:</p>
+<p>Authentication with the Guru API occurs using Bearer tokens. You must include your authentication token as a header on each request you make:</p>
 
 <p><code>Authorization: Bearer &lt;token&gt;</code></p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://guru-prod.us.auth0.com/oauth/token</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/x-www-form-urlencoded</span><span class="dl">'</span>
+    <span class="p">},</span> 
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">client_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_ID</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">client_secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_SECRET</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">audience</span><span class="p">:</span> <span class="dl">'</span><span class="s1">616de4f3656d0a021bf12acd</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">grant_type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">client_credentials</span><span class="dl">'</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">authToken</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">access_token</span><span class="p">;</span>
+
+    <span class="c1">//...</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Your service will obtain its authentication token using an OAuth Client-Credential Flow.
+If you are a newly-integrating service then you will need to reach out to Guru to have your client credentials created.
+Once you have received these credentials, you will write code that exchanges them for an authentication token when you want to make a request to our API.
+The flow will be:</p>
+
+<ol>
+<li>Exchange your client ID and secret with <code>https://guru-prod.us.auth0.com</code> for an access token.</li>
+<li>Include the access token on each request to the Guru API.</li>
+</ol>
+
+<p>See the example on this page for working code to perform the credential exchange. 
+See <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">here</a> for more details on implementing the Client-Credential flow. </p>
 <h1 id='videos'>Videos</h1>
 <p>Uploading a video for analysis is a three-step process:</p>
 
