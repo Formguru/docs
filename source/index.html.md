@@ -1,14 +1,11 @@
 ---
-title: API Reference
+title: Guru API
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  #- <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -20,226 +17,93 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Guru API
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Guru API. This API allows you to upload and perform analysis on your workouts and exercise.
+See below to find out how to authenticate your calls and start working with the API.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+If you would like to integrate and require assistance then please [contact us](https://www.formguru.fitness/contact).
 
 # Authentication
 
-> To authorize, use this code:
+Authentication with the Guru API occurs using Bearer tokens. Include your authentication token as a request header:
 
-```ruby
-require 'kittn'
+`Authorization: Bearer <token>`
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+# Videos
 
-```python
-import kittn
+Uploading a video for analysis is a three-step process:
 
-api = kittn.authorize('meowmeowmeow')
-```
+1. Call the [Create API](#create-video) to specify the video's metadata. This will tell Guru some basic information about the video such as its size, and also include optional additional information such as the activity being performed in the video. This information helps deliver more accurate analysis results. The API will return a URL that specifies where the video should be uploaded to.
+1. Upload the video content to the URL returned in step 1. The video will be encoded as `multipart/form-data` in the request.
+1. Poll the Analysis API until the video is ready. It will typically take 30 seconds for analysis to complete, though longer wait times may be experienced for larger videos.
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
+See below for details on each individual API call.
+
+## Create Video
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
+axios({
+    method: 'post',
+    url: 'https://api.formguru.fitness/videos',
+    headers: {
+        Authorization: 'Bearer ' + token
+    }, 
+    data: {
+        filename: 'workout.mp4',
+        size: 1234,
+        domain: 'weightlifting',
+        activity: 'squat',
+        source: 'my-service'
+    }
+}).then(function (response) {
+    const formData = new FormData();
+    Object.keys(response.data.fields).forEach((key) => {
+        formData.append(key, response.data.fields[key]);
+    });
+    formData.append("file", video);
+    
+    axios.post(
+        response.data.url, 
+        formData, 
+        {
+            headers: { "Content-Type": "multipart/form-data" }
+        }
+    ).catch(function (error) {
+        //...
+    });
+}).catch(function (error) {
+    //...
+});
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+`POST https://api.formguru.fitness/videos`
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+### Request
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Parameter | Required | Default | Description
+--------- | ------- | ------- | -----------
+filename | Yes | None | The name of the video file, including extension.
+size | Yes | None | The size of the video file, in bytes.
+source | No | None | The source of the video. If the video was captured by your service then enter your service's name for this field.
+domain | No | None | The category of exercise being performed in the video. See the table below for accepted values.
+activity | No | None | The movement being performed in the video. See the table below for accepted values.
 
-`Authorization: meowmeowmeow`
+The currently accepted values for `domain` and `activity` are:
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+ Domain | Activity
+ ------ | ------- |
+ weightlifting | squat, deadlift, bench_press
+ calisthenics | push_up
 
-# Kittens
+### Response
+The response is JSON and contains the following data:
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
+Field | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+id | Unique identifier for your video. You will use it to make calls to the API to fetch results or perform other operations on the video.
+url | Location to which your video content will be uploaded. This upload must be `multipart/form-data` encoded.
+fields | The signing fields which must be included in your form when you upload the video. Take a look at the example to see how to combine these fields with your video content.
