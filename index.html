@@ -324,6 +324,9 @@
                   <li>
                     <a href="#create-video" class="toc-h2 toc-link" data-title="Create Video">Create Video</a>
                   </li>
+                  <li>
+                    <a href="#get-analysis" class="toc-h2 toc-link" data-title="Get Analysis">Get Analysis</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -352,7 +355,7 @@ See below to find out how to authenticate your calls and start working with the 
 <ol>
 <li>Call the <a href="#create-video">Create API</a> to specify the video&#39;s metadata. This will tell Guru some basic information about the video such as its size, and also include optional additional information such as the activity being performed in the video. This information helps deliver more accurate analysis results. The API will return a URL that specifies where the video should be uploaded to.</li>
 <li>Upload the video content to the URL returned in step 1. The video will be encoded as <code>multipart/form-data</code> in the request.</li>
-<li>Poll the Analysis API until the video is ready. It will typically take 30 seconds for analysis to complete, though longer wait times may be experienced for larger videos.</li>
+<li>Poll the <a href="#get-analysis">Analysis API</a> until the video is ready. It will typically take 30 seconds for analysis to complete, though longer wait times may be experienced for larger videos.</li>
 </ol>
 
 <p>See below for details on each individual API call.</p>
@@ -468,6 +471,82 @@ See below to find out how to authenticate your calls and start working with the 
 <tr>
 <td>fields</td>
 <td>The signing fields which must be included in your form when you upload the video. Take a look at the example to see how to combine these fields with your video content.</td>
+</tr>
+</tbody></table>
+<h2 id='get-analysis'>Get Analysis</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.formguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/analysis</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>A successful response would look something like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Complete"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weightlifting"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"activity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"squat"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"reps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"startTimestampMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"midTimestampMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">456</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"endTimestampMs"</span><span class="p">:</span><span class="w"> </span><span class="mi">789</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"analyses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"analysisType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIP_KNEE_ANGLE_DEGREES"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"analysisScalar"</span><span class="p">:</span><span class="w"> </span><span class="mf">12.34</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET https://api.formguru.fitness/videos/{id}/analysis</code> </p>
+<h3 id='request-2'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>None</td>
+<td>The ID of the video you wish to fetch analysis for.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<p>The response is JSON and contains the following data:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>Indicating where analysis was successfully performed. Possible values are: <code>Pending</code>, <code>Complete</code>, or <code>Failed</code>.</td>
+</tr>
+<tr>
+<td>domain</td>
+<td>The category of exercise being performed in the video.</td>
+</tr>
+<tr>
+<td>activity</td>
+<td>The movement being performed in the video.</td>
+</tr>
+<tr>
+<td>reps</td>
+<td>An array of objects, each one an individual rep detected in the video. Each rep indicates the timestamp offsets within the video where it can be found (via <code>startTimestampMs</code>, <code>midTimestampMs</code>, and <code>endTimestampMs</code>). It also specifies an <code>analyses</code> array of objects, which contains the individual insights generated by the analysis.</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
