@@ -81,7 +81,7 @@ See below for details on each individual API call.
 ```javascript
 axios({
     method: 'post',
-    url: 'https://api.formguru.fitness/videos',
+    url: 'https://api.getguru.fitness/videos',
     headers: {
         Authorization: 'Bearer ' + token
     }, 
@@ -113,7 +113,7 @@ axios({
 });
 ```
 
-`POST https://api.formguru.fitness/videos`
+`POST https://api.getguru.fitness/videos`
 
 ### Request
 
@@ -145,7 +145,7 @@ fields | The signing fields which must be included in your form when you upload 
 
 ```javascript
 axios({
-    url: 'https://api.formguru.fitness/videos/' + videoId + '/analysis',
+    url: 'https://api.getguru.fitness/videos/' + videoId + '/analysis',
     headers: {
         Authorization: 'Bearer ' + token
     }
@@ -179,7 +179,7 @@ axios({
 }
 ```
 
-`GET https://api.formguru.fitness/videos/{id}/analysis` 
+`GET https://api.getguru.fitness/videos/{id}/analysis` 
 
 ### Request
 
