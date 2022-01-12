@@ -25,7 +25,7 @@ meta:
 Welcome to the Guru API. This API allows you to upload and perform analysis on your workouts and exercise.
 See below to find out how to authenticate your calls and start working with the API.
 
-If you would like to integrate and require assistance then please [contact us](https://www.formguru.fitness/contact).
+If you would like to integrate and require assistance then please [contact us](mailto:support@getguru.fitness).
 
 # Authentication
 
@@ -56,7 +56,7 @@ axios({
 ```
 
 Your service will obtain its authentication token using an OAuth Client-Credential Flow.
-If you are a newly-integrating service then you will need to reach out to Guru to have your client credentials created.
+If you are a newly-integrating service then you will need to [reach out to Guru](mailto:support@getguru.fitness) to have your client credentials created.
 Once you have received these credentials, you will write code that exchanges them for an authentication token when you want to make a request to our API.
 The flow will be:
 
