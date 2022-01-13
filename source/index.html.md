@@ -124,8 +124,8 @@ filename | Yes | None | The name of the video file, including extension.
 size | Yes | None | The size of the video file, in bytes.
 source | No | None | The source of the video. If the video was captured by your service then enter your service's name for this field.
 domain | No | None | The category of exercise being performed in the video. See the table below for accepted values.
-repCount | No | None | The number of reps expected to be performed in the video. Omit if unknown.
 activity | No | None | The movement being performed in the video. See the table below for accepted values.
+repCount | No | None | The number of reps expected to be performed in the video. Omit if unknown.
 
 The currently accepted values for `domain` and `activity` are:
 
