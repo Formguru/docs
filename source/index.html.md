@@ -43,7 +43,7 @@ axios({
     data: {
         client_id: 'YOUR_CLIENT_ID',
         client_secret: 'YOUR_CLIENT_SECRET',
-        audience: '616de4f3656d0a021bf12acd',
+        audience: 'https://api.formguru.fitness/',
         grant_type: 'client_credentials'
     }
 }).then(function (response) {
