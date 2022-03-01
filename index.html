@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;typescript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -306,6 +306,7 @@
       <img src="images/logo-d141de80.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="typescript">typescript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -429,6 +430,45 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="p">});</span>
 <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//...</span>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="c1">//assuming variable 'file' of type Express.Multer.File</span>
+<span class="nx">axios</span><span class="p">({</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+  <span class="p">},</span> 
+  <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">workout.mp4</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">size</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
+    <span class="na">domain</span><span class="p">:</span> <span class="dl">'</span><span class="s1">weightlifting</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">activity</span><span class="p">:</span> <span class="dl">'</span><span class="s1">squat</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">repCount</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="na">source</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-service</span><span class="dl">'</span>
+  <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">formData</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">fields</span><span class="p">).</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">key</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">formData</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
+  <span class="p">});</span>
+  <span class="nx">formData</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">file</span><span class="dl">"</span><span class="p">,</span>  <span class="nx">file</span><span class="p">.</span><span class="nx">buffer</span> <span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">originalname</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">headers</span> <span class="o">=</span> <span class="nx">formData</span><span class="p">.</span><span class="nx">getHeaders</span><span class="p">()</span>
+  <span class="nx">formData</span><span class="p">.</span><span class="nx">getLength</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">length</span><span class="p">){</span>
+    <span class="nx">headers</span><span class="p">[</span><span class="dl">"</span><span class="s2">content-length</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="nx">length</span>
+    <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span>
+      <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> 
+      <span class="nx">formData</span><span class="p">,</span> 
+      <span class="p">{</span>
+        <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+      <span class="p">}</span>
+    <span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//...</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">//...</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//...</span>
 <span class="p">});</span>
 </code></pre></div>
 <p><code>POST https://api.getguru.fitness/videos</code></p>
@@ -732,6 +772,7 @@ If an endpoint varies its error codes then that will be noted explicitly in that
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="typescript">typescript</a>
           </div>
       </div>
     </div>
