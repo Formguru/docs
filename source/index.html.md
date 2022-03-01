@@ -143,6 +143,68 @@ id | Unique identifier for your video. You will use it to make calls to the API 
 url | Location to which your video content will be uploaded. This upload must be `multipart/form-data` encoded.
 fields | The signing fields which must be included in your form when you upload the video. Take a look at the example to see how to combine these fields with your video content.
 
+## Get Video
+
+```javascript
+axios({
+    url: 'https://api.getguru.fitness/videos/' + videoId,
+    headers: {
+        Authorization: 'Bearer ' + token
+    }
+}).then(function (response) {
+    //...
+});
+```
+
+`GET https://api.getguru.fitness/videos/{id}` 
+
+### Request
+
+Parameter | Required | Default | Description
+--------- | ------- | ------- | -----------
+id | Yes | None | The ID of the video you wish to fetch data for.
+
+### Response
+The response is JSON and contains the following data:
+
+Field | Description
+--------- | -----------
+status | Indicating where analysis was successfully performed. Possible values are: `Pending` (if they video has not been uploaded yet), or `Success`.
+uri | The location from which the raw video can be downloaded.
+
+## Update Video
+
+```javascript
+axios({
+    method: 'put',
+    url: 'https://api.getguru.fitness/videos/' + videoId,
+    headers: {
+        Authorization: 'Bearer ' + token
+    }, 
+    data: {
+        repCount: 10,
+    }
+}).then(function (response) {
+    //...
+});
+```
+
+`PUT https://api.getguru.fitness/videos/{id}` 
+
+### Request
+
+The request payload should be in a JSON-encoded body. All of the fields are optional. 
+If a field is omitted, then the existing value will be preserved.
+
+Parameter | Required | Default | Description
+--------- | ------- | ------- | -----------
+repCount | No | None | The number of reps that were performed in the video.
+domain | No | None | The category of exercise being performed in the video. See the table in Create Video for accepted values.
+activity | No | None | The movement being performed in the video. See the table in Create Video for accepted values.
+
+### Response
+The response is JSON and contains the ID of the video.
+
 ## Get Analysis
 
 ```javascript
