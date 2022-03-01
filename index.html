@@ -325,6 +325,12 @@
                     <a href="#create-video" class="toc-h2 toc-link" data-title="Create Video">Create Video</a>
                   </li>
                   <li>
+                    <a href="#get-video" class="toc-h2 toc-link" data-title="Get Video">Get Video</a>
+                  </li>
+                  <li>
+                    <a href="#update-video" class="toc-h2 toc-link" data-title="Update Video">Update Video</a>
+                  </li>
+                  <li>
                     <a href="#get-analysis" class="toc-h2 toc-link" data-title="Get Analysis">Get Analysis</a>
                   </li>
               </ul>
@@ -512,6 +518,97 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>The signing fields which must be included in your form when you upload the video. Take a look at the example to see how to combine these fields with your video content.</td>
 </tr>
 </tbody></table>
+<h2 id='get-video'>Get Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>GET https://api.getguru.fitness/videos/{id}</code> </p>
+<h3 id='request-2'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Yes</td>
+<td>None</td>
+<td>The ID of the video you wish to fetch data for.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<p>The response is JSON and contains the following data:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>Indicating where analysis was successfully performed. Possible values are: <code>Pending</code> (if they video has not been uploaded yet), or <code>Success</code>.</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>The location from which the raw video can be downloaded.</td>
+</tr>
+</tbody></table>
+<h2 id='update-video'>Update Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">put</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+    <span class="p">},</span> 
+    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">repCount</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><code>PUT https://api.getguru.fitness/videos/{id}</code> </p>
+<h3 id='request-3'>Request</h3>
+<p>The request payload should be in a JSON-encoded body. All of the fields are optional. 
+If a field is omitted, then the existing value will be preserved.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>repCount</td>
+<td>No</td>
+<td>None</td>
+<td>The number of reps that were performed in the video.</td>
+</tr>
+<tr>
+<td>domain</td>
+<td>No</td>
+<td>None</td>
+<td>The category of exercise being performed in the video. See the table in Create Video for accepted values.</td>
+</tr>
+<tr>
+<td>activity</td>
+<td>No</td>
+<td>None</td>
+<td>The movement being performed in the video. See the table in Create Video for accepted values.</td>
+</tr>
+</tbody></table>
+<h3 id='response-3'>Response</h3>
+<p>The response is JSON and contains the ID of the video.</p>
 <h2 id='get-analysis'>Get Analysis</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/analysis</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
@@ -546,7 +643,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><code>GET https://api.getguru.fitness/videos/{id}/analysis</code> </p>
-<h3 id='request-2'>Request</h3>
+<h3 id='request-4'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -562,7 +659,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>The ID of the video you wish to fetch analysis for.</td>
 </tr>
 </tbody></table>
-<h3 id='response-2'>Response</h3>
+<h3 id='response-4'>Response</h3>
 <p>The response is JSON and contains the following data:</p>
 
 <table><thead>
