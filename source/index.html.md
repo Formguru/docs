@@ -3,6 +3,7 @@ title: Guru API
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
+  - typescript
 
 toc_footers:
   #- <a href='#'>Sign Up for a Developer Key</a>
@@ -111,6 +112,48 @@ axios({
     });
 }).catch(function (error) {
     //...
+});
+```
+
+```typescript
+//assuming variable 'file' of type Express.Multer.File
+axios({
+  method: 'post',
+  url: 'https://api.getguru.fitness/videos',
+  headers: {
+    Authorization: 'Bearer ' + token
+  }, 
+  data: {
+    filename: 'workout.mp4',
+    size: 1234,
+    domain: 'weightlifting',
+    activity: 'squat',
+    repCount: 12,
+    source: 'my-service'
+  }
+}).then(function (response) {
+  const formData = new FormData();
+  Object.keys(response.data.fields).forEach((key) => {
+    formData.append(key, response.data.fields[key]);
+  });
+  formData.append("file",  file.buffer , file.originalname);
+  let headers = formData.getHeaders()
+  formData.getLength(function(err,length){
+    headers["content-length"] = length
+    axios.post(
+      response.data.url, 
+      formData, 
+      {
+        headers: headers
+      }
+    ).then(function (response) {
+      //...
+    }).catch(function (error) {
+      //...
+    });
+  });
+}).catch(function (error) {
+  //...
 });
 ```
 
