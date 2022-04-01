@@ -383,7 +383,7 @@ axios({
 
 Parameter | Required | Default | Description
 --------- | ------- | ------- | -----------
-id | Yes | None | The ID of the video you wish to fetch j2p for.
+id | Yes | None | The ID of the video you wish to fetch joint-to-point (j2p) for.
 
 ### Response
 The response is JSON and contains the following data:
