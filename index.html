@@ -364,7 +364,7 @@ See below to find out how to authenticate your calls and start working with the 
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://guru-prod.us.auth0.com/oauth/token</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/x-www-form-urlencoded</span><span class="dl">'</span>
-    <span class="p">},</span> 
+    <span class="p">},</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">client_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_ID</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">client_secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_SECRET</span><span class="dl">'</span><span class="p">,</span>
@@ -389,8 +389,8 @@ The flow will be:</p>
 <li>Include the access token on each request to the Guru API.</li>
 </ol>
 
-<p>See the example on this page for working code to perform the credential exchange. 
-See <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">here</a> for more details on implementing the Client-Credential flow. </p>
+<p>See the example on this page for working code to perform the credential exchange.
+See <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">here</a> for more details on implementing the Client-Credential flow.</p>
 <h1 id='videos'>Videos</h1>
 <p>Uploading a video for analysis is a three-step process:</p>
 
@@ -406,7 +406,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
-    <span class="p">},</span> 
+    <span class="p">},</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">workout.mp4</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">size</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
@@ -423,8 +423,8 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="nx">formData</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">file</span><span class="dl">"</span><span class="p">,</span> <span class="nx">video</span><span class="p">);</span>
 
     <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> 
-        <span class="nx">formData</span><span class="p">,</span> 
+        <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+        <span class="nx">formData</span><span class="p">,</span>
         <span class="p">{</span>
             <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">multipart/form-data</span><span class="dl">"</span> <span class="p">}</span>
         <span class="p">}</span>
@@ -440,7 +440,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
   <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
-  <span class="p">},</span> 
+  <span class="p">},</span>
   <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">workout.mp4</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">size</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
@@ -459,8 +459,8 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
   <span class="nx">formData</span><span class="p">.</span><span class="nx">getLength</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">length</span><span class="p">){</span>
     <span class="nx">headers</span><span class="p">[</span><span class="dl">"</span><span class="s2">content-length</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="nx">length</span>
     <span class="nx">axios</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span>
-      <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> 
-      <span class="nx">formData</span><span class="p">,</span> 
+      <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+      <span class="nx">formData</span><span class="p">,</span>
       <span class="p">{</span>
         <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
       <span class="p">}</span>
@@ -570,7 +570,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="c1">//...</span>
 <span class="p">});</span>
 </code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}</code> </p>
+<p><code>GET https://api.getguru.fitness/videos/{id}</code></p>
 <h3 id='request-2'>Request</h3>
 <table><thead>
 <tr>
@@ -610,7 +610,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
-    <span class="p">},</span> 
+    <span class="p">},</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">repCount</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
     <span class="p">}</span>
@@ -618,9 +618,9 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="c1">//...</span>
 <span class="p">});</span>
 </code></pre></div>
-<p><code>PUT https://api.getguru.fitness/videos/{id}</code> </p>
+<p><code>PUT https://api.getguru.fitness/videos/{id}</code></p>
 <h3 id='request-3'>Request</h3>
-<p>The request payload should be in a JSON-encoded body. All of the fields are optional. 
+<p>The request payload should be in a JSON-encoded body. All of the fields are optional.
 If a field is omitted, then the existing value will be preserved.</p>
 
 <table><thead>
@@ -685,7 +685,7 @@ If a field is omitted, then the existing value will be preserved.</p>
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}/analysis</code> </p>
+<p><code>GET https://api.getguru.fitness/videos/{id}/analysis</code></p>
 <h3 id='request-4'>Request</h3>
 <table><thead>
 <tr>
@@ -716,6 +716,10 @@ If a field is omitted, then the existing value will be preserved.</p>
 <td>Indicating where analysis was successfully performed. Possible values are: <code>Pending</code>, <code>Complete</code>, or <code>Failed</code>.</td>
 </tr>
 <tr>
+<td>reason</td>
+<td>The reason that the analysis failed. Only present when status is <code>Failed</code></td>
+</tr>
+<tr>
 <td>domain</td>
 <td>The category of exercise being performed in the video.</td>
 </tr>
@@ -726,6 +730,20 @@ If a field is omitted, then the existing value will be preserved.</p>
 <tr>
 <td>reps</td>
 <td>An array of objects, each one an individual rep detected in the video. Each rep indicates the timestamp offsets within the video where it can be found (via <code>startTimestampMs</code>, <code>midTimestampMs</code>, and <code>endTimestampMs</code>). It also specifies an <code>analyses</code> array of objects, which contains the individual insights generated by the analysis.</td>
+</tr>
+</tbody></table>
+
+<p>When set, <code>reason</code> will be one of the following values:</p>
+
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>LOW_QUALITY_POSE_ESTIMATE</code></td>
+<td>Guru couldn&#39;t confidently detect the body&#39;s position throughout the video</td>
 </tr>
 </tbody></table>
 <h2 id='get-joint-data'>Get Joint Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
@@ -796,7 +814,7 @@ If a field is omitted, then the existing value will be preserved.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}/j2p</code> </p>
+<p><code>GET https://api.getguru.fitness/videos/{id}/j2p</code></p>
 <h3 id='request-5'>Request</h3>
 <table><thead>
 <tr>
@@ -827,6 +845,10 @@ If a field is omitted, then the existing value will be preserved.</p>
 <td>Indicating where analysis was successfully performed. Possible values are: <code>Pending</code>, <code>Complete</code>, or <code>Failed</code>.</td>
 </tr>
 <tr>
+<td>reason</td>
+<td>The reason that the analysis failed. Only present when status is <code>Failed</code></td>
+</tr>
+<tr>
 <td>resolutionHeight</td>
 <td>The height of the video.</td>
 </tr>
@@ -844,7 +866,10 @@ If a field is omitted, then the existing value will be preserved.</p>
 </tr>
 </tbody></table>
 
-<p><code>JointFrame</code> objects define the information for a single joint for a single frame within the video. 
+<p>The semantics of the <code>reason</code> field are identical to those of the <a href="#get-analysis">the
+Analysis endpoint</a>.</p>
+
+<p><code>JointFrame</code> objects define the information for a single joint for a single frame within the video.
 They have the following structure:</p>
 
 <table><thead>
