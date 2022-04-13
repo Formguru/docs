@@ -24,6 +24,14 @@ bundle exec middleman server
 ```
 which will start the server on http://localhost:4567
 
+If you are on an M1 Mac and you see an error like this:
+
+    /Library/Ruby/Gems/2.6.0/gems/nokogiri-1.12.5-x86_64-darwin/lib/nokogiri/extension.rb:7:in `require_relative': dlopen(/Library/Ruby/Gems/2.6.0/gems/nokogiri-1.12.5-x86_64-darwin/lib/nokogiri/2.6/nokogiri.bundle, 0x0009): tried: '/Library/Ruby/Gems/2.6.0/gems/nokogiri-1.12.5-x86_64-darwin/lib/nokogiri/2.6/nokogiri.bundle' (mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e')), '/usr/lib/nokogiri.bundle' (no such file) - /Library/Ruby/Gems/2.6.0/gems/nokogiri-1.12.5-x86_64-darwin/lib/nokogiri/2.6/nokogiri.bundle (LoadError)
+
+
+Re-install nokogiri as described in [this StackOverflow
+answer](https://stackoverflow.com/a/69817978/895769).
+
 Deployment
 ------------
 Once you merge your changes to `main` they will be automatically deployed via [GitHub Actions](https://github.com/Formguru/docs/actions).
