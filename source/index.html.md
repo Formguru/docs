@@ -62,7 +62,9 @@ Once you have received these credentials, you will write code that exchanges the
 The flow will be:
 
 1. Exchange your client ID and secret with `https://guru-prod.us.auth0.com` for an access token.
-1. Include the access token on each request to the Guru API.
+1. Store the tokens in persistent storage, so that they can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.
+1. Before making a call to the Guru API, check if the token is expired and, if so, refresh it.
+1. Make the call to the Guru API using the access token.
 
 See the example on this page for working code to perform the credential exchange.
 See [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) for more details on implementing the Client-Credential flow.
