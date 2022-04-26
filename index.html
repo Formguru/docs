@@ -386,7 +386,9 @@ The flow will be:</p>
 
 <ol>
 <li>Exchange your client ID and secret with <code>https://guru-prod.us.auth0.com</code> for an access token.</li>
-<li>Include the access token on each request to the Guru API.</li>
+<li>Store the tokens in persistent storage, so that they can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.</li>
+<li>Before making a call to the Guru API, check if the token is expired and, if so, refresh it.</li>
+<li>Make the call to the Guru API using the access token.</li>
 </ol>
 
 <p>See the example on this page for working code to perform the credential exchange.
