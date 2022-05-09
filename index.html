@@ -572,7 +572,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="c1">//...</span>
 <span class="p">});</span>
 </code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}</code></p>
+<p><code>GET https://api.getguru.fitness/videos/{id}?include=j2p,analysis</code></p>
 <h3 id='request-2'>Request</h3>
 <table><thead>
 <tr>
@@ -588,6 +588,12 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>None</td>
 <td>The ID of the video you wish to fetch data for.</td>
 </tr>
+<tr>
+<td>include</td>
+<td>No</td>
+<td>None</td>
+<td>A comma-separated list of additional fields you wish to return. Accepted values are <code>j2p</code> and <code>analysis</code>.</td>
+</tr>
 </tbody></table>
 <h3 id='response-2'>Response</h3>
 <p>The response is JSON and contains the following data:</p>
@@ -600,11 +606,23 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </thead><tbody>
 <tr>
 <td>status</td>
-<td>Indicating where analysis was successfully performed. Possible values are: <code>Pending</code> (if they video has not been uploaded yet), or <code>Success</code>.</td>
+<td>Indicating whether analysis was successfully performed. Possible values are: <code>Pending</code> (if they video has not been uploaded yet), or <code>Success</code>.</td>
 </tr>
 <tr>
 <td>uri</td>
 <td>The location from which the raw video can be downloaded.</td>
+</tr>
+<tr>
+<td>overlays</td>
+<td>Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will contain a <code>skeleton</code> attribute, that has a <code>status</code> field. If the overlay has been built then it will also contain a <code>uri</code> field that is a link to download the overlayed video.</td>
+</tr>
+<tr>
+<td>analysis</td>
+<td>Only present if specified in <code>include</code>. See the <a href="#get-analysis">Get Analysis</a> endpoint for the structure of this object.</td>
+</tr>
+<tr>
+<td>j2p</td>
+<td>Only present if specified in <code>include</code>. See the <a href="#get-joint-data">Get Joint Data</a> endpoint for the structure of this object.</td>
 </tr>
 </tbody></table>
 <h2 id='update-video'>Update Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
