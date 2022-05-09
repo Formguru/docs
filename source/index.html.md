@@ -201,21 +201,25 @@ axios({
 });
 ```
 
-`GET https://api.getguru.fitness/videos/{id}`
+`GET https://api.getguru.fitness/videos/{id}?include=j2p,analysis`
 
 ### Request
 
 Parameter | Required | Default | Description
 --------- | ------- | ------- | -----------
 id | Yes | None | The ID of the video you wish to fetch data for.
+include | No | None | A comma-separated list of additional fields you wish to return. Accepted values are `j2p` and `analysis`. 
 
 ### Response
 The response is JSON and contains the following data:
 
 Field | Description
 --------- | -----------
-status | Indicating where analysis was successfully performed. Possible values are: `Pending` (if they video has not been uploaded yet), or `Success`.
+status | Indicating whether analysis was successfully performed. Possible values are: `Pending` (if they video has not been uploaded yet), or `Success`.
 uri | The location from which the raw video can be downloaded.
+overlays | Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will contain a `skeleton` attribute, that has a `status` field. If the overlay has been built then it will also contain a `uri` field that is a link to download the overlayed video.
+analysis | Only present if specified in `include`. See the [Get Analysis](#get-analysis) endpoint for the structure of this object.
+j2p | Only present if specified in `include`. See the [Get Joint Data](#get-joint-data) endpoint for the structure of this object.
 
 ## Update Video
 
