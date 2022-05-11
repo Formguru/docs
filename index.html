@@ -614,7 +614,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </tr>
 <tr>
 <td>overlays</td>
-<td>Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will contain a <code>skeleton</code> attribute, that has a <code>status</code> field. If the overlay has been built then it will also contain a <code>uri</code> field that is a link to download the overlayed video.</td>
+<td>Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will map the type of overlay to an object that has a <code>status</code> field. If the overlay has been built then it will also contain a <code>uri</code> field that is a link to download the overlayed video.</td>
 </tr>
 <tr>
 <td>analysis</td>
@@ -623,6 +623,24 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <tr>
 <td>j2p</td>
 <td>Only present if specified in <code>include</code>. See the <a href="#get-joint-data">Get Joint Data</a> endpoint for the structure of this object.</td>
+</tr>
+</tbody></table>
+
+<p>The currently supported overlay types are:</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>skeleton</td>
+<td>Contains a wireframe drawing of the joints and major landmarks identified on the person.</td>
+</tr>
+<tr>
+<td>all</td>
+<td>Contains all supported overlay elements, including wireframes, rep counting, and analytics about the movement.</td>
 </tr>
 </tbody></table>
 <h2 id='update-video'>Update Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
