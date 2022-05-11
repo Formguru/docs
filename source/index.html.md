@@ -217,9 +217,16 @@ Field | Description
 --------- | -----------
 status | Indicating whether analysis was successfully performed. Possible values are: `Pending` (if they video has not been uploaded yet), or `Success`.
 uri | The location from which the raw video can be downloaded.
-overlays | Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will contain a `skeleton` attribute, that has a `status` field. If the overlay has been built then it will also contain a `uri` field that is a link to download the overlayed video.
+overlays | Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will map the type of overlay to an object that has a `status` field. If the overlay has been built then it will also contain a `uri` field that is a link to download the overlayed video.
 analysis | Only present if specified in `include`. See the [Get Analysis](#get-analysis) endpoint for the structure of this object.
 j2p | Only present if specified in `include`. See the [Get Joint Data](#get-joint-data) endpoint for the structure of this object.
+
+The currently supported overlay types are:
+
+Type | Description
+--------- | -----------
+skeleton | Contains a wireframe drawing of the joints and major landmarks identified on the person.
+all | Contains all supported overlay elements, including wireframes, rep counting, and analytics about the movement.
 
 ## Update Video
 
