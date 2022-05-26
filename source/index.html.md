@@ -4,6 +4,7 @@ title: Guru API
 language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
   - typescript
+  - python
 
 toc_footers:
   #- <a href='#'>Sign Up for a Developer Key</a>
@@ -35,24 +36,17 @@ Authentication with the Guru API occurs using Bearer tokens. You must include yo
 `Authorization: Bearer <token>`
 
 ```javascript
-axios({
-    method: 'post',
-    url: 'https://guru-prod.us.auth0.com/oauth/token',
-    headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-    },
-    data: {
-        client_id: 'YOUR_CLIENT_ID',
-        client_secret: 'YOUR_CLIENT_SECRET',
-        audience: 'https://api.formguru.fitness/',
-        grant_type: 'client_credentials'
-    }
-}).then(function (response) {
-    const authToken = response.data.access_token;
+var request = require("request");
 
-    //...
-}).catch(function (error) {
-    //...
+var options = { method: 'POST',
+  url: 'https://guru-prod.us.auth0.com/oauth/token',
+  headers: { 'content-type': 'application/json' },
+  body: '{"client_id": ' + client_id + ',"client_secret": ' + client_secret + ',"audience":"https://api.formguru.fitness/","grant_type":"client_credentials"}' };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
 });
 ```
 
@@ -157,6 +151,47 @@ axios({
 }).catch(function (error) {
   //...
 });
+```
+
+```python
+import os
+import requests
+
+
+def create(video_path, access_token, domain, activity, rep_count = 3):
+    return requests.post(
+        "https://api.getguru.fitness/videos",
+        json = {
+            "filename": os.path.basename(video_path),
+            "size": os.path.getsize(video_path),
+            "domain": domain,
+            "activity": activity,
+            "repCount": rep_count,
+        },
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_token}"
+        }
+    )
+
+
+def upload(video_path, create_response):
+    json = create_response.json()
+    url = json["url"]
+    fields = json["fields"]
+
+    with open(video_path, "rb") as file:
+        return requests.post(
+            url,
+            data=fields,
+            files={"file": file},
+        )
+
+# access_token = ...
+video_path = "path/to/video.mp4"
+create_response = create(video_path, access_token, "weightlifting", "squat", 1)
+upload_response = upload(video_path, create_response)
+
 ```
 
 `POST https://api.getguru.fitness/videos`
