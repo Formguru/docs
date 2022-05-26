@@ -295,7 +295,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;,&quot;typescript&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;typescript&quot;,&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -307,6 +307,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="typescript">typescript</a>
+              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -359,24 +360,17 @@ See below to find out how to authenticate your calls and start working with the 
 <p>Authentication with the Guru API occurs using Bearer tokens. You must include your authentication token as a header on each request you make:</p>
 
 <p><code>Authorization: Bearer &lt;token&gt;</code></p>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
-    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://guru-prod.us.auth0.com/oauth/token</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-        <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/x-www-form-urlencoded</span><span class="dl">'</span>
-    <span class="p">},</span>
-    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">client_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_ID</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">client_secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">YOUR_CLIENT_SECRET</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">audience</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.formguru.fitness/</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">grant_type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">client_credentials</span><span class="dl">'</span>
-    <span class="p">}</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">authToken</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">access_token</span><span class="p">;</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">);</span>
 
-    <span class="c1">//...</span>
-<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//...</span>
+<span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://guru-prod.us.auth0.com/oauth/token</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{"client_id": </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_id</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">,"client_secret": </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_secret</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">,"audience":"https://api.formguru.fitness/","grant_type":"client_credentials"}</span><span class="dl">'</span> <span class="p">};</span>
+
+<span class="nx">request</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
 <p>Your service will obtain its authentication token using an OAuth Client-Credential Flow.
@@ -475,6 +469,44 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">//...</span>
 <span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+
+<span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">rep_count</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s">"https://api.getguru.fitness/videos"</span><span class="p">,</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"filename"</span><span class="p">:</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">basename</span><span class="p">(</span><span class="n">video_path</span><span class="p">),</span>
+            <span class="s">"size"</span><span class="p">:</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">video_path</span><span class="p">),</span>
+            <span class="s">"domain"</span><span class="p">:</span> <span class="n">domain</span><span class="p">,</span>
+            <span class="s">"activity"</span><span class="p">:</span> <span class="n">activity</span><span class="p">,</span>
+            <span class="s">"repCount"</span><span class="p">:</span> <span class="n">rep_count</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">"Content-Type"</span><span class="p">:</span> <span class="s">"application/json"</span><span class="p">,</span>
+            <span class="s">"Authorization"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"Bearer </span><span class="si">{</span><span class="n">access_token</span><span class="si">}</span><span class="s">"</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">create_response</span><span class="p">):</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">create_response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"url"</span><span class="p">]</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s">"fields"</span><span class="p">]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="s">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
+            <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s">"file"</span><span class="p">:</span> <span class="nb">file</span><span class="p">},</span>
+        <span class="p">)</span>
+
+<span class="c1"># access_token = ...
+</span><span class="n">video_path</span> <span class="o">=</span> <span class="s">"path/to/video.mp4"</span>
+<span class="n">create_response</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="s">"weightlifting"</span><span class="p">,</span> <span class="s">"squat"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">upload_response</span> <span class="o">=</span> <span class="n">upload</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">create_response</span><span class="p">)</span>
+
 </code></pre></div>
 <p><code>POST https://api.getguru.fitness/videos</code></p>
 <h3 id='request'>Request</h3>
@@ -985,6 +1017,7 @@ If an endpoint varies its error codes then that will be noted explicitly in that
           <div class="lang-selector">
                 <a href="#" data-language-name="javascript">javascript</a>
                 <a href="#" data-language-name="typescript">typescript</a>
+                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
