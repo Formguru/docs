@@ -211,8 +211,11 @@ The currently accepted values for `domain` and `activity` are:
 
  Domain | Activity
  ------ | ------- |
- weightlifting | squat, deadlift, bench_press
- calisthenics | push_up
+ weightlifting | bench_press, clean_and_jerk, deadlift, snatch, squat  
+ calisthenics | bodyweight_squat, burpee, chin_up, lunge, push_up, sit_up
+ martial_arts | punch
+ mobility | knee_to_chest
+ yoga | downward_dog
 
 ### Response
 The response is JSON and contains the following data:
