@@ -379,8 +379,8 @@ Once you have received these credentials, you will write code that exchanges the
 The flow will be:</p>
 
 <ol>
-<li>Exchange your client ID and secret with <code>https://guru-prod.us.auth0.com</code> for an access token.</li>
-<li>Store the tokens in persistent storage, so that they can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.</li>
+<li>Exchange your client ID and secret with <code>https://guru-prod.us.auth0.com</code> for an access token. The value of the <code>expires_in</code> field in the response is the number of seconds until this token expires.</li>
+<li>Store the token along with its expiration date in persistent storage so that it can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.</li>
 <li>Before making a call to the Guru API, check if the token is expired and, if so, refresh it.</li>
 <li>Make the call to the Guru API using the access token.</li>
 </ol>
