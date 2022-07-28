@@ -55,8 +55,8 @@ If you are a newly-integrating service then you will need to [reach out to Guru]
 Once you have received these credentials, you will write code that exchanges them for an authentication token when you want to make a request to our API.
 The flow will be:
 
-1. Exchange your client ID and secret with `https://guru-prod.us.auth0.com` for an access token.
-1. Store the tokens in persistent storage, so that they can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.
+1. Exchange your client ID and secret with `https://guru-prod.us.auth0.com` for an access token. The value of the `expires_in` field is the number of seconds until this token expires.
+1. Store the token along with its expiration date in persistent storage so that it can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.
 1. Before making a call to the Guru API, check if the token is expired and, if so, refresh it.
 1. Make the call to the Guru API using the access token.
 
