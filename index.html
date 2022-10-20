@@ -405,7 +405,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="p">},</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">workout.mp4</span><span class="dl">'</span><span class="p">,</span>
-        <span class="na">size</span><span class="p">:</span> <span class="mi">1234</span><span class="p">,</span>
+        <span class="na">size</span><span class="p">:</span> <span class="o">&lt;&lt;</span><span class="nx">video</span><span class="o">-</span><span class="nx">size</span><span class="o">-</span><span class="k">in</span><span class="o">-</span><span class="nx">bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span>
         <span class="na">domain</span><span class="p">:</span> <span class="dl">'</span><span class="s1">weightlifting</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">activity</span><span class="p">:</span> <span class="dl">'</span><span class="s1">squat</span><span class="dl">'</span><span class="p">,</span>
         <span class="na">repCount</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
@@ -422,7 +422,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
         <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
         <span class="nx">formData</span><span class="p">,</span>
         <span class="p">{</span>
-            <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">multipart/form-data</span><span class="dl">"</span> <span class="p">}</span>
+            <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">multipart/form-data</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Content-Length</span><span class="dl">"</span><span class="p">:</span> <span class="o">&lt;&lt;</span><span class="nx">video</span><span class="o">-</span><span class="nx">size</span><span class="o">-</span><span class="k">in</span><span class="o">-</span><span class="nx">bytes</span><span class="o">&gt;&gt;</span> <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">).</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">//...</span>
