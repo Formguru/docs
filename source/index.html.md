@@ -84,7 +84,7 @@ axios({
     },
     data: {
         filename: 'workout.mp4',
-        size: 1234,
+        size: <<video-size-in-bytes>>,
         domain: 'weightlifting',
         activity: 'squat',
         repCount: 12,
@@ -101,7 +101,7 @@ axios({
         response.data.url,
         formData,
         {
-            headers: { "Content-Type": "multipart/form-data" }
+            headers: { "Content-Type": "multipart/form-data", "Content-Length": <<video-size-in-bytes>> }
         }
     ).catch(function (error) {
         //...
