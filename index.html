@@ -357,15 +357,15 @@ See below to find out how to authenticate your calls and start working with the 
 
 <p>If you would like to integrate and require assistance then please <a href="mailto:support@getguru.fitness">contact us</a>.</p>
 <h1 id='authentication'>Authentication</h1>
-<p>Authentication with the Guru API occurs using Bearer tokens. You must include your authentication token as a header on each request you make:</p>
+<p>Authentication with the Guru API occurs using OAuth tokens. You must include your authentication token as a header on each request you make:</p>
 
-<p><code>Authorization: Bearer &lt;token&gt;</code></p>
+<p><code>Authorization: &lt;token&gt;</code></p>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://guru-prod.us.auth0.com/oauth/token</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span> <span class="p">},</span>
-  <span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{"client_id": </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_id</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">,"client_secret": </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_secret</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">,"audience":"https://api.formguru.fitness/","grant_type":"client_credentials"}</span><span class="dl">'</span> <span class="p">};</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://customer-console-prod.auth.us-west-2.amazoncognito.com/oauth2/token</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/x-www-form-urlencoded</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">grant_type=client_credentials&amp;client_id=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_id</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;client_secret=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_secret</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;scope=https://api.getguru.fitness/default</span><span class="dl">'</span> <span class="p">};</span>
 
 <span class="nx">request</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
@@ -374,12 +374,13 @@ See below to find out how to authenticate your calls and start working with the 
 <span class="p">});</span>
 </code></pre></div>
 <p>Your service will obtain its authentication token using an OAuth Client-Credential Flow.
-If you are a newly-integrating service then you will need to <a href="mailto:support@getguru.fitness">reach out to Guru</a> to have your client credentials created.
-Once you have received these credentials, you will write code that exchanges them for an authentication token when you want to make a request to our API.
-The flow will be:</p>
+If you are a newly-integrating service then you will need to create an account with Guru via the <a href="https://console.getguru.fitness">Console</a> to access your credentials.
+Please see the <a href="https://blog.getguru.fitness/2022/03/24/getting-started-with-guru.html">Getting Started with Guru</a> guide for more details on account creation.</p>
+
+<p>Once you have your access credentials, the authentication flow will be:</p>
 
 <ol>
-<li>Exchange your client ID and secret with <code>https://guru-prod.us.auth0.com</code> for an access token. The value of the <code>expires_in</code> field in the response is the number of seconds until this token expires.</li>
+<li>Exchange your client ID and secret with <code>https://customer-console-prod.auth.us-west-2.amazoncognito.com</code> for an access token. The value of the <code>expires_in</code> field in the response is the number of seconds until this token expires.</li>
 <li>Store the token along with its expiration date in persistent storage so that it can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.</li>
 <li>Before making a call to the Guru API, check if the token is expired and, if so, refresh it.</li>
 <li>Make the call to the Guru API using the access token.</li>
@@ -401,7 +402,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">},</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">workout.mp4</span><span class="dl">'</span><span class="p">,</span>
@@ -435,7 +436,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+    <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
   <span class="p">},</span>
   <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">workout.mp4</span><span class="dl">'</span><span class="p">,</span>
@@ -485,7 +486,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
         <span class="p">},</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s">"Content-Type"</span><span class="p">:</span> <span class="s">"application/json"</span><span class="p">,</span>
-            <span class="s">"Authorization"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"Bearer </span><span class="si">{</span><span class="n">access_token</span><span class="si">}</span><span class="s">"</span>
+            <span class="s">"Authorization"</span><span class="p">:</span> <span class="n">access_token</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
@@ -610,7 +611,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <h2 id='get-video'>Get Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">}</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//...</span>
@@ -691,7 +692,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">put</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">},</span>
     <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">repCount</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
@@ -737,7 +738,7 @@ If a field is omitted, then the existing value will be preserved.</p>
 <h2 id='get-analysis'>Get Analysis</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/analysis</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">}</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//...</span>
@@ -837,7 +838,7 @@ one who sits higher. Possible values for this field are <code>good</code> or <co
 <h2 id='get-joint-data'>Get Joint Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/j2p</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-        <span class="na">Authorization</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">token</span>
+        <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">}</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//...</span>
