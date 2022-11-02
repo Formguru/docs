@@ -31,17 +31,17 @@ If you would like to integrate and require assistance then please [contact us](m
 
 # Authentication
 
-Authentication with the Guru API occurs using Bearer tokens. You must include your authentication token as a header on each request you make:
+Authentication with the Guru API occurs using OAuth tokens. You must include your authentication token as a header on each request you make:
 
-`Authorization: Bearer <token>`
+`Authorization: <token>`
 
 ```javascript
 var request = require("request");
 
 var options = { method: 'POST',
-  url: 'https://guru-prod.us.auth0.com/oauth/token',
-  headers: { 'content-type': 'application/json' },
-  body: '{"client_id": ' + client_id + ',"client_secret": ' + client_secret + ',"audience":"https://api.formguru.fitness/","grant_type":"client_credentials"}' };
+  url: 'https://customer-console-prod.auth.us-west-2.amazoncognito.com/oauth2/token',
+  headers: { 'content-type': 'application/x-www-form-urlencoded' },
+  body: 'grant_type=client_credentials&client_id=' + client_id + '&client_secret=' + client_secret + '&scope=https://api.getguru.fitness/default' };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
@@ -51,11 +51,12 @@ request(options, function (error, response, body) {
 ```
 
 Your service will obtain its authentication token using an OAuth Client-Credential Flow.
-If you are a newly-integrating service then you will need to [reach out to Guru](mailto:support@getguru.fitness) to have your client credentials created.
-Once you have received these credentials, you will write code that exchanges them for an authentication token when you want to make a request to our API.
-The flow will be:
+If you are a newly-integrating service then you will need to create an account with Guru via the [Console](https://console.getguru.fitness) to access your credentials.
+Please see the [Getting Started with Guru](https://blog.getguru.fitness/2022/03/24/getting-started-with-guru.html) guide for more details on account creation.
 
-1. Exchange your client ID and secret with `https://guru-prod.us.auth0.com` for an access token. The value of the `expires_in` field in the response is the number of seconds until this token expires.
+Once you have your access credentials, the authentication flow will be:
+
+1. Exchange your client ID and secret with `https://customer-console-prod.auth.us-west-2.amazoncognito.com` for an access token. The value of the `expires_in` field in the response is the number of seconds until this token expires.
 1. Store the token along with its expiration date in persistent storage so that it can be re-used on each call. It is important to not request new tokens on each call as your application will be rate limited.
 1. Before making a call to the Guru API, check if the token is expired and, if so, refresh it.
 1. Make the call to the Guru API using the access token.
@@ -80,7 +81,7 @@ axios({
     method: 'post',
     url: 'https://api.getguru.fitness/videos',
     headers: {
-        Authorization: 'Bearer ' + token
+        Authorization: token
     },
     data: {
         filename: 'workout.mp4',
@@ -117,7 +118,7 @@ axios({
   method: 'post',
   url: 'https://api.getguru.fitness/videos',
   headers: {
-    Authorization: 'Bearer ' + token
+    Authorization: token
   },
   data: {
     filename: 'workout.mp4',
@@ -170,7 +171,7 @@ def create(video_path, access_token, domain, activity, rep_count = 3):
         },
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {access_token}"
+            "Authorization": access_token
         }
     )
 
@@ -232,7 +233,7 @@ fields | The signing fields which must be included in your form when you upload 
 axios({
     url: 'https://api.getguru.fitness/videos/' + videoId,
     headers: {
-        Authorization: 'Bearer ' + token
+        Authorization: token
     }
 }).then(function (response) {
     //...
@@ -273,7 +274,7 @@ axios({
     method: 'put',
     url: 'https://api.getguru.fitness/videos/' + videoId,
     headers: {
-        Authorization: 'Bearer ' + token
+        Authorization: token
     },
     data: {
         repCount: 10,
@@ -305,7 +306,7 @@ The response is JSON and contains the ID of the video.
 axios({
     url: 'https://api.getguru.fitness/videos/' + videoId + '/analysis',
     headers: {
-        Authorization: 'Bearer ' + token
+        Authorization: token
     }
 }).then(function (response) {
     //...
@@ -374,7 +375,7 @@ Value | Description
 axios({
     url: 'https://api.getguru.fitness/videos/' + videoId + '/j2p',
     headers: {
-        Authorization: 'Bearer ' + token
+        Authorization: token
     }
 }).then(function (response) {
     //...
