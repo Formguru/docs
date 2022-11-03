@@ -214,7 +214,7 @@ The currently accepted values for `domain` and `activity` are:
  ------ | ------- |
  weightlifting | bench_press, clean_and_jerk, deadlift, snatch, squat  
  calisthenics | bodyweight_squat, burpee, chin_up, lunge, push_up, sit_up
- martial_arts | punch
+ martial_arts | punch, front_kick
  mobility | knee_to_chest
  yoga | downward_dog
 
