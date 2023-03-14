@@ -637,7 +637,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>include</td>
 <td>No</td>
 <td>None</td>
-<td>A comma-separated list of additional fields you wish to return. Accepted values are <code>j2p</code> and <code>analysis</code>.</td>
+<td>A comma-separated list of additional fields you wish to return. Accepted values are <code>j2p</code>, <code>analysis</code>, and <code>objects</code>.</td>
 </tr>
 </tbody></table>
 <h3 id='response-2'>Response</h3>
@@ -668,6 +668,10 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <tr>
 <td>j2p</td>
 <td>Only present if specified in <code>include</code>. See the <a href="#get-joint-data">Get Joint Data</a> endpoint for the structure of this object.</td>
+</tr>
+<tr>
+<td>objects</td>
+<td>Only present if specified in <code>include</code>. Contains an array of each object detected in the video. Each object will contain an array of <code>boundingBoxes</code>, showing the location of that object at particular frames in the video.</td>
 </tr>
 </tbody></table>
 
