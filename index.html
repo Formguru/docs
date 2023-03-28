@@ -651,7 +651,11 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </thead><tbody>
 <tr>
 <td>status</td>
-<td>Indicating whether analysis was successfully performed. Possible values are: <code>Pending</code> (if they video has not been uploaded yet), or <code>Success</code>.</td>
+<td>Indicating whether analysis was successfully performed. Possible values are: <code>Pending</code> (if the video has not been uploaded yet), <code>Success</code>, or <code>Failed</code>.</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>The reason that the analysis failed. Only present when status is <code>Failed</code></td>
 </tr>
 <tr>
 <td>uri</td>
