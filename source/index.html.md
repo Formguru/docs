@@ -254,7 +254,8 @@ The response is JSON and contains the following data:
 
 Field | Description
 --------- | -----------
-status | Indicating whether analysis was successfully performed. Possible values are: `Pending` (if they video has not been uploaded yet), or `Success`.
+status | Indicating whether analysis was successfully performed. Possible values are: `Pending` (if the video has not been uploaded yet), `Success`, or `Failed`.
+reason | The reason that the analysis failed. Only present when status is `Failed`
 uri | The location from which the raw video can be downloaded.
 overlays | Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will map the type of overlay to an object that has a `status` field. If the overlay has been built then it will also contain a `uri` field that is a link to download the overlayed video.
 analysis | Only present if specified in `include`. See the [Get Analysis](#get-analysis) endpoint for the structure of this object.
