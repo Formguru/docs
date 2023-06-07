@@ -258,6 +258,7 @@ status | Indicating whether analysis was successfully performed. Possible values
 reason | The reason that the analysis failed. Only present when status is `Failed`
 uri | The location from which the raw video can be downloaded.
 overlays | Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will map the type of overlay to an object that has a `status` field. If the overlay has been built then it will also contain a `uri` field that is a link to download the overlayed video.
+fps | The frame rate (in frames per second) of the uploaded video
 analysis | Only present if specified in `include`. See the [Get Analysis](#get-analysis) endpoint for the structure of this object.
 j2p | Only present if specified in `include`. See the [Get Joint Data](#get-joint-data) endpoint for the structure of this object.
 objects | Only present if specified in `include`. Contains an array of each object detected in the video. Each object will contain an array of `boundingBoxes`, showing the location of that object at particular frames in the video.
@@ -370,6 +371,53 @@ When set, `reason` will be one of the following values:
 Value | Description
 ------ | ----------
 `LOW_QUALITY_POSE_ESTIMATE` | Guru couldn't confidently detect the body's position throughout the video
+
+### Details - Sprints
+
+For sprints, the analysis field contains some additional fields:
+
+Field | Description
+----- | -----------
+fieldMarkers | Only present if the runner is on an American football field with 5-yard markers or if 10 yards have been marked with start and end cones. See below for a description of the values.
+reps | A list containing one entry for each stride. A "stride" begins when the toe leaves the ground and ends when the same foot contacts the ground. See below for details on the fields in each rep.
+runnerProgress | A list which represents a time-series of the distance the runner has traveled. Each entry in the list contains three fields: `distanceFromStart` (in meters), `frameIndex` and `timestamp` (in milliseconds). Note that `distanceFromStart` is negative when the runner hasn't yet crossed the starting line (e.g., if the runner is 1 meter _behind_ the starting line 1 second into the video, then `distanceFromStart=-1` @ `timestamp=1000`)
+
+#### Field Markers
+
+The `fieldMarkers` object has 4 possible keys: `startLine`, `middleLine`,
+`finishLine`, and `cones`. The start, middle, and finish lines correspond to 0,
+5, and 10 yards on an American football field. The start line is the line that
+the runner crosses first and the end line is the line that they cross last.
+
+Field | Description
+----- | -----------
+type | Either `YARD_LINE` or `CONE`
+position | Contains fields `x1`, `y1`, `x2`, and `y2`. If `YARD_LINE`, these fields represent the unnormalized coordinates of the line segment. If `CONE`, these fields represent a bounding-box that circumscribes the cone.
+frame_idx | The frame index of the video corresponding to the detection timestamp: The timestamp (in milliseconds) corresponding to the detection
+
+#### Reps
+
+Each entry in `reps` corresponds to a stride and contains the following fields:
+
+Field | Description
+--------- | -----------
+startTimestampMs | The timestamp at which the toe leaves the ground
+midTimestampMs | The timestamp corresponding to the middle of the stride (defined as peak flexion at the hip)
+endTimestampMs | The timestamp at which the foot touches back down onto the ground
+analyses | A list of objects containing two fields: `analysisType` and `anaylsisScalar`. See below for details.
+
+Each entry in the `analyses` list contains these fields:
+
+Analysis Type | Description
+--------- | -----------
+IS_LEFT_LEG | 1 if the left leg is the leg swinging forward in this stride, 0 if it's the right leg
+STRIDE_AIR_TIME_MS | The time that the runner is in the air during this stride, equal to the duration between toe-off (`startTimestampMs` of this stride) and the touch-down of the opposite foot (`endTimestampMs` of the previous stride). This will be `null` for the first stride in the list since it isn't well defined without a previous stride.
+STRIDE_GROUND_TIME_MS | The time that the runner is on the ground until the next stride begins. Ground time begins at the same instant that the air time ends, at touch-down of the opposite foot. This will also be `null` for the first stride in the list.
+STRIDE_PEAK_FLEXION_ANGLE | The peak flexion angle of the leg during the stride
+STRIDE_PEAK_FLEXION_ANGLE_TIMESTAMP | The timestamp at which the leg reaches the peak flexion angle
+STRIDE_PEAK_EXTENSION_ANGLE | The peak extension angle of the leg during the stride
+STRIDE_PEAK_EXTENSION_ANGLE_TIMESTAMP | The timestamp at which the leg reaches the peak extension angle
+
 
 ## Get Joint Data
 
