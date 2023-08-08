@@ -216,6 +216,7 @@ The currently accepted values for `domain` and `activity` are:
  calisthenics | bodyweight_squat, burpee, chin_up, lunge, push_up, sit_up
  martial_arts | punch, front_kick
  mobility | knee_to_chest
+ running | sprint
  yoga | downward_dog
 
 ### Response
