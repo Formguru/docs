@@ -255,13 +255,13 @@ The response is JSON and contains the following data:
 
 Field | Description
 --------- | -----------
-status | Indicating whether analysis was successfully performed. Possible values are: `Pending` (if the video has not been uploaded yet), `Success`, or `Failed`.
+status | Indicating whether the video has been uploaded to Guru. Possible values are: `Pending` (if the video has not been uploaded yet), `Success`, or `Failed`.
 reason | The reason that the analysis failed. Only present when status is `Failed`
 uri | The location from which the raw video can be downloaded.
 overlays | Contains information about the overlays (e.g. wireframes) Guru has built for this video. The object will map the type of overlay to an object that has a `status` field. If the overlay has been built then it will also contain a `uri` field that is a link to download the overlayed video.
 fps | The frame rate (in frames per second) of the uploaded video
-analysis | Only present if specified in `include`. See the [Get Analysis](#get-analysis) endpoint for the structure of this object.
-j2p | Only present if specified in `include`. See the [Get Joint Data](#get-joint-data) endpoint for the structure of this object.
+analysis | Only present if specified in `include`. See the [Get Analysis](#get-analysis) endpoint for the structure of this object. Contains a `status` field to indicate whether processing has completed.
+j2p | Only present if specified in `include`. See the [Get Joint Data](#get-joint-data) endpoint for the structure of this object. Contains a `status` field to indicate whether processing has completed.
 objects | Only present if specified in `include`. Contains an array of each object detected in the video. Each object will contain an array of `boundingBoxes`, showing the location of that object at particular frames in the video.
 
 The currently supported overlay types are:
