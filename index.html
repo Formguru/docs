@@ -655,7 +655,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </thead><tbody>
 <tr>
 <td>status</td>
-<td>Indicating whether analysis was successfully performed. Possible values are: <code>Pending</code> (if the video has not been uploaded yet), <code>Success</code>, or <code>Failed</code>.</td>
+<td>Indicating whether the video has been uploaded to Guru. Possible values are: <code>Pending</code> (if the video has not been uploaded yet), <code>Success</code>, or <code>Failed</code>.</td>
 </tr>
 <tr>
 <td>reason</td>
@@ -675,11 +675,11 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </tr>
 <tr>
 <td>analysis</td>
-<td>Only present if specified in <code>include</code>. See the <a href="#get-analysis">Get Analysis</a> endpoint for the structure of this object.</td>
+<td>Only present if specified in <code>include</code>. See the <a href="#get-analysis">Get Analysis</a> endpoint for the structure of this object. Contains a <code>status</code> field to indicate whether processing has completed.</td>
 </tr>
 <tr>
 <td>j2p</td>
-<td>Only present if specified in <code>include</code>. See the <a href="#get-joint-data">Get Joint Data</a> endpoint for the structure of this object.</td>
+<td>Only present if specified in <code>include</code>. See the <a href="#get-joint-data">Get Joint Data</a> endpoint for the structure of this object. Contains a <code>status</code> field to indicate whether processing has completed.</td>
 </tr>
 <tr>
 <td>objects</td>
