@@ -315,33 +315,38 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
-          </li>
-          <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
-          </li>
-          <li>
-            <a href="#videos" class="toc-h1 toc-link" data-title="Videos">Videos</a>
+            <a href="#api" class="toc-h1 toc-link" data-title="API">API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-video" class="toc-h2 toc-link" data-title="Create Video">Create Video</a>
+                    <a href="#introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
                   </li>
                   <li>
-                    <a href="#get-video" class="toc-h2 toc-link" data-title="Get Video">Get Video</a>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
                   </li>
                   <li>
-                    <a href="#update-video" class="toc-h2 toc-link" data-title="Update Video">Update Video</a>
+                    <a href="#videos" class="toc-h2 toc-link" data-title="Videos">Videos</a>
                   </li>
                   <li>
-                    <a href="#get-analysis" class="toc-h2 toc-link" data-title="Get Analysis">Get Analysis</a>
-                  </li>
-                  <li>
-                    <a href="#get-joint-data" class="toc-h2 toc-link" data-title="Get Joint Data">Get Joint Data</a>
+                    <a href="#errors" class="toc-h2 toc-link" data-title="Errors">Errors</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#guru-js" class="toc-h1 toc-link" data-title="Guru.js">Guru.js</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#process" class="toc-h2 toc-link" data-title="Process">Process</a>
+                  </li>
+                  <li>
+                    <a href="#render" class="toc-h2 toc-link" data-title="Render">Render</a>
+                  </li>
+                  <li>
+                    <a href="#analyze" class="toc-h2 toc-link" data-title="Analyze">Analyze</a>
+                  </li>
+                  <li>
+                    <a href="#appendix-a" class="toc-h2 toc-link" data-title="Appendix A">Appendix A</a>
+                  </li>
+              </ul>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -351,12 +356,12 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
+        <h1 id='api'>API</h1><h2 id='introduction'>Introduction</h2>
 <p>Welcome to the Guru API. This API allows you to upload and perform analysis on your workouts and exercise.
 See below to find out how to authenticate your calls and start working with the API.</p>
 
 <p>If you would like to integrate and require assistance then please <a href="mailto:support@getguru.fitness">contact us</a>.</p>
-<h1 id='authentication'>Authentication</h1>
+<h2 id='authentication'>Authentication</h2>
 <p>Authentication with the Guru API occurs using OAuth tokens. You must include your authentication token as a header on each request you make:</p>
 
 <p><code>Authorization: &lt;token&gt;</code></p>
@@ -388,7 +393,7 @@ Please see the <a href="https://blog.getguru.fitness/2022/03/24/getting-started-
 
 <p>See the example on this page for working code to perform the credential exchange.
 See <a href="https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow">here</a> for more details on implementing the Client-Credential flow.</p>
-<h1 id='videos'>Videos</h1>
+<h2 id='videos'>Videos</h2>
 <p>Uploading a video for analysis is a three-step process:</p>
 
 <ol>
@@ -398,7 +403,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </ol>
 
 <p>See below for details on each individual API call.</p>
-<h2 id='create-video'>Create Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+<h3 id='create-video'>Create Video</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
@@ -510,7 +515,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 
 </code></pre></div>
 <p><code>POST https://api.getguru.fitness/videos</code></p>
-<h3 id='request'>Request</h3>
+<h4 id='request'>Request</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -590,7 +595,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>downward_dog</td>
 </tr>
 </tbody></table>
-<h3 id='response'>Response</h3>
+<h4 id='response'>Response</h4>
 <p>The response is JSON and contains the following data:</p>
 
 <table><thead>
@@ -612,7 +617,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>The signing fields which must be included in your form when you upload the video. Take a look at the example to see how to combine these fields with your video content.</td>
 </tr>
 </tbody></table>
-<h2 id='get-video'>Get Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+<h3 id='get-video'>Get Video</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
@@ -622,7 +627,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <span class="p">});</span>
 </code></pre></div>
 <p><code>GET https://api.getguru.fitness/videos/{id}?include=j2p,analysis</code></p>
-<h3 id='request-2'>Request</h3>
+<h4 id='request-2'>Request</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -644,7 +649,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>A comma-separated list of additional fields you wish to return. Accepted values are <code>j2p</code>, <code>analysis</code>, and <code>objects</code>.</td>
 </tr>
 </tbody></table>
-<h3 id='response-2'>Response</h3>
+<h4 id='response-2'>Response</h4>
 <p>The response is JSON and contains the following data:</p>
 
 <table><thead>
@@ -704,7 +709,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <td>Contains all supported overlay elements, including wireframes, rep counting, and analytics about the movement.</td>
 </tr>
 </tbody></table>
-<h2 id='update-video'>Update Video</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+<h3 id='update-video'>Update Video</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">put</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
@@ -718,7 +723,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <span class="p">});</span>
 </code></pre></div>
 <p><code>PUT https://api.getguru.fitness/videos/{id}</code></p>
-<h3 id='request-3'>Request</h3>
+<h4 id='request-3'>Request</h4>
 <p>The request payload should be in a JSON-encoded body. All of the fields are optional.
 If a field is omitted, then the existing value will be preserved.</p>
 
@@ -749,9 +754,9 @@ If a field is omitted, then the existing value will be preserved.</p>
 <td>The movement being performed in the video. See the table in Create Video for accepted values.</td>
 </tr>
 </tbody></table>
-<h3 id='response-3'>Response</h3>
+<h4 id='response-3'>Response</h4>
 <p>The response is JSON and contains the ID of the video.</p>
-<h2 id='get-analysis'>Get Analysis</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+<h3 id='get-analysis'>Get Analysis</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/analysis</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
@@ -785,7 +790,7 @@ If a field is omitted, then the existing value will be preserved.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><code>GET https://api.getguru.fitness/videos/{id}/analysis</code></p>
-<h3 id='request-4'>Request</h3>
+<h4 id='request-4'>Request</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -801,7 +806,7 @@ If a field is omitted, then the existing value will be preserved.</p>
 <td>The ID of the video you wish to fetch analysis for.</td>
 </tr>
 </tbody></table>
-<h3 id='response-4'>Response</h3>
+<h4 id='response-4'>Response</h4>
 <p>The response is JSON and contains the following data:</p>
 
 <table><thead>
@@ -851,7 +856,7 @@ one who sits higher. Possible values for this field are <code>good</code> or <co
 <td>Guru couldn&#39;t confidently detect the body&#39;s position throughout the video</td>
 </tr>
 </tbody></table>
-<h3 id='details-sprints'>Details - Sprints</h3>
+<h4 id='details-sprints'>Details - Sprints</h4>
 <p>For sprints, the analysis field contains some additional fields:</p>
 
 <table><thead>
@@ -873,7 +878,7 @@ one who sits higher. Possible values for this field are <code>good</code> or <co
 <td>A list which represents a time-series of the distance the runner has traveled. Each entry in the list contains three fields: <code>distanceFromStart</code> (in meters), <code>frameIndex</code> and <code>timestamp</code> (in milliseconds). Note that <code>distanceFromStart</code> is negative when the runner hasn&#39;t yet crossed the starting line (e.g., if the runner is 1 meter <em>behind</em> the starting line 1 second into the video, then <code>distanceFromStart=-1</code> @ <code>timestamp=1000</code>)</td>
 </tr>
 </tbody></table>
-<h4 id='field-markers'>Field Markers</h4>
+<h5 id='field-markers'>Field Markers</h5>
 <p>The <code>fieldMarkers</code> object has 4 possible keys: <code>startLine</code>, <code>middleLine</code>,
 <code>finishLine</code>, and <code>cones</code>. The start, middle, and finish lines correspond to 0,
 5, and 10 yards on an American football field. The start line is the line that
@@ -898,7 +903,7 @@ the runner crosses first and the end line is the line that they cross last.</p>
 <td>The frame index of the video corresponding to the detection timestamp: The timestamp (in milliseconds) corresponding to the detection</td>
 </tr>
 </tbody></table>
-<h4 id='reps'>Reps</h4>
+<h5 id='reps'>Reps</h5>
 <p>Each entry in <code>reps</code> corresponds to a stride and contains the following fields:</p>
 
 <table><thead>
@@ -962,7 +967,7 @@ the runner crosses first and the end line is the line that they cross last.</p>
 <td>The timestamp at which the leg reaches the peak extension angle</td>
 </tr>
 </tbody></table>
-<h2 id='get-joint-data'>Get Joint Data</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
+<h3 id='get-joint-data'>Get Joint Data</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/j2p</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
@@ -1031,7 +1036,7 @@ the runner crosses first and the end line is the line that they cross last.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><code>GET https://api.getguru.fitness/videos/{id}/j2p</code></p>
-<h3 id='request-5'>Request</h3>
+<h4 id='request-5'>Request</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1047,7 +1052,7 @@ the runner crosses first and the end line is the line that they cross last.</p>
 <td>The ID of the video you wish to fetch joint-to-point (j2p) for.</td>
 </tr>
 </tbody></table>
-<h3 id='response-5'>Response</h3>
+<h4 id='response-5'>Response</h4>
 <p>The response is JSON and contains the following data:</p>
 
 <table><thead>
@@ -1115,7 +1120,7 @@ They have the following structure:</p>
 <td>The timestamp of this frame within the video, measured in seconds.</td>
 </tr>
 </tbody></table>
-<h1 id='errors'>Errors</h1>
+<h2 id='errors'>Errors</h2>
 <p>The Guru API uses the following error globally across all endpoints:</p>
 
 <table><thead>
@@ -1157,6 +1162,205 @@ They have the following structure:</p>
 <aside class="notice">
 If an endpoint varies its error codes then that will be noted explicitly in that endpoint's documentation. 
 </aside>
+<h1 id='guru-js'>Guru.js</h1>
+<p>Guru.js is the Javascript framework that allows you to tell
+the Guru AI platform how to process your video. The same code
+runs on both the server-side API and on-device, allowing you to
+write once and run anywhere.</p>
+
+<p>Before you can begin writing Guru.js, you will need to create a Schema.
+A <code>Schema</code> is a configuration that holds all the information Guru
+needs to process a video. You can create a new Schema from
+the <a href="https://console.getguru.fitness/schemas/new">Guru Console</a>.
+We recommend starting from a template to get up and running faster.</p>
+
+<p>A Schema holds three separate Guru.js functions:</p>
+
+<ol>
+<li><strong>Process</strong> - This function defines what AI operations should be carried out on each frame.</li>
+<li><strong>Render</strong> - This function defines what visual rendering should be done on each frame of the video. It can be used to visualize the output of Guru&#39;s AI platform. It is optional.</li>
+<li><strong>Analyze</strong> - This function runs once on the output of all the frames. It is used to perform final analysis on the video, such as counting the number of repetitions of a movement.</li>
+</ol>
+
+<p>Guru will call your <code>Process</code> function for individual frames within the video. It will then
+pass the result of the AI operations to your <code>Render</code> function, so that you can modify
+the display of the output video. Finally, it will pass the collection of <code>Process</code> results
+to your <code>Analyze</code> function, so that you can perform aggregate analysis of the video. </p>
+
+<p>We will now go over each function in more detail.</p>
+<h2 id='process'>Process</h2>
+<blockquote>
+<p>The Process function allows you to perform AI operations on a frame within the video.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
+ * @param {Frame} frame - The frame to process
+ * @return {*} - The output of processing for this frame.
+ */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">processFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">Frame</span> <span class="p">{</span>
+
+  <span class="cm">/**
+   * Find objects of a specific type within the video.
+   *
+   * @param {(string|Array.&lt;string&gt;)} objectTypes - The type of the object to find.
+   *    Can either be a string, in which case objects of a single type will be found, or an array of strings, in which case multiple object types will be found.
+   * @param {boolean} keypoints - Flag indicating whether to include keypoints in the results. Defaults to true.
+   * @return {Array.&lt;FrameObject&gt;} A list of FrameObject instances matching the given criteria.
+   */</span>
+  <span class="k">async</span> <span class="nx">findObjects</span><span class="p">(</span><span class="nx">objectTypes</span><span class="p">,</span> <span class="p">{</span><span class="nx">keypoints</span> <span class="o">=</span> <span class="kc">true</span><span class="p">}</span> <span class="o">=</span> <span class="p">{});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The Process function is responsible for performing AI operations on the frame,
+such as object detection and pose estimation, and returning the results
+of those operations. The function accepts a single argument of type <code>Frame</code>. 
+This object provides an easy-to-use interface to the Guru AI Platform.</p>
+
+<p>Refer to <a href="#appendix-a">Appendix A</a> for a definition of the common types used by <code>Frame</code>.</p>
+
+<p>The output of the <code>Process</code> function will then be provided as input to the
+<code>Render</code> and <code>Analyze</code> functions documented below.</p>
+
+<blockquote>
+<p>Example implementation that finds all of the people in the frame and outputs their location information</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">processFrame</span><span class="p">(</span><span class="nx">frame</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">objects</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">frame</span><span class="p">.</span><span class="nx">findObjects</span><span class="p">(</span><span class="dl">"</span><span class="s2">person</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="na">people</span><span class="p">:</span> <span class="nx">objects</span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div><h2 id='render'>Render</h2>
+<blockquote>
+<p>The Render function allows you to modify the FrameCanvas with the output of the Process function.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
+ * @param {FrameCanvas} frameCanvas - A canvas for the current frame, on which draw operations can be made.
+ * @param {*} processResult - The output of the Process function for this frame.
+ */</span>
+<span class="kd">function</span> <span class="nx">renderFrame</span><span class="p">(</span><span class="nx">frameCanvas</span><span class="p">,</span> <span class="nx">processResult</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">FrameCanvas</span> <span class="p">{</span>
+
+  <span class="cm">/**
+   * Draw a box with the given color around this object's location onto the frame.
+   *
+   * @param {FrameObject} object - The object around which the box will be drawn.
+   * @param {Color} color - The color of the box.
+   * @param {number} width - The width of the box's border, in pixels. Defaults to 5.
+   * @return {FrameCanvas} This FrameCanvas, that can be used to chain calls.
+   */</span>
+  <span class="nx">drawBoundingBox</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">);</span>
+
+  <span class="cm">/**
+   * Draw the skeleton for the given object onto the frame. Note that the object must have its keypoints
+   * inferred in order to draw the skeleton.
+   *
+   * @param {FrameObject} object - The object whose skeleton will be drawn onto the canvas.
+   * @param {Color} lineColor - The color of the lines connecting the keypoints in the skeleton.
+   * @param {Color} keypointColor - The color of the circles representing the joint keypoints in the skeleton.
+   * @param {number} lineWidth - The width, in pixels, of the lines connecting the keypoints. Defaults to 5.
+   * @param {number} keypointRadius - The radius, in pixels, of the circles representing the keypoints. Defaults to 5.
+   */</span>
+  <span class="nx">drawSkeleton</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">lineColor</span><span class="p">,</span> <span class="nx">keypointColor</span><span class="p">,</span> <span class="nx">lineWidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">keypointRadius</span> <span class="o">=</span> <span class="mi">5</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The Render function receives two arguments: one of type <code>FrameCanvas</code>, defined below, 
+and a second which is the output of the <code>Process</code> function for that frame. 
+Your implementation can use the <code>FrameCanvas</code> object to modify the appearance of the 
+output video, using information from the output of <code>Process</code>.</p>
+
+<p>Refer to <a href="#appendix-a">Appendix A</a> for a definition of the common types used by <code>FrameCanvas</code>.</p>
+
+<blockquote>
+<p>Example implementation that draws a red box around each object found in the frame</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">function</span> <span class="nx">renderFrame</span><span class="p">(</span><span class="nx">frameCanvas</span><span class="p">,</span> <span class="nx">processResult</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">objects</span> <span class="o">=</span> <span class="nx">processResult</span><span class="p">.</span><span class="nx">objects</span><span class="p">;</span>
+    <span class="nx">objects</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">object</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">frameCanvas</span><span class="p">.</span><span class="nx">drawBoundingBox</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div><h2 id='analyze'>Analyze</h2>
+<blockquote>
+<p>The Analyze function allows you to operate on the output of multiple Process functions and return the analysis for the video.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
+ * @param {Array.&lt;FrameResult&gt;} frameResults - An array of the outputs of calls to the Process function.
+ * @return {*} - The analysis result for this video
+ */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">analyzeVideo</span><span class="p">(</span><span class="nx">frameResults</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * @typedef {Object} FrameResult
+ * @property {number} frameIndex - The index of the frame within the video.
+ * @property {number} timestampMs - The timestamp of the frame in milliseconds.
+ * @property {*} returnValue - The value that was returned from the Process function for this frame.
+ */</span>
+</code></pre></div>
+<p>The Analyze function receives one argument, an Array of <code>FrameResult</code> objects. 
+This function can perform any kind of analysis required on the results of each Frame
+to perform complex reasoning. It could, for example, count the number of repetitions
+of a particular movement, or de-duplicate the names of unique objects found across the
+entire video.</p>
+
+<p>The output of this function will be the analysis result of the video. It will be accessible
+from the <a href="https://docs.getguru.fitness/#get-analysis">Get Analysis</a> endpoint when using
+server-side processing, or as the output of the SDK when performing on-device processing.</p>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
+ * Example implementation that reduces the FrameResults to an array of unique 
+ * object types found across the video
+ */</span>
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">analyzeVideo</span><span class="p">(</span><span class="nx">frameResults</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">frameObjectTypes</span> <span class="o">=</span> <span class="nx">frameResults</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">frameResult</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">frameResult</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">object</span><span class="p">.</span><span class="nx">objectType</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}).</span><span class="nx">flat</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="k">new</span> <span class="nb">Set</span><span class="p">(</span><span class="nx">frameObjectTypes</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div><h2 id='appendix-a'>Appendix A</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
+ * A two-dimensional box, indicating the bounds of something.
+ *
+ * @typedef {Object} Box
+ * @property {Position} top_left - The top-left corner of the box.
+ * @property {Position} bottom_right - The bottom-right corner of the box.
+ */</span>
+
+<span class="cm">/**
+ * A colour, represented as an RGB value. Valid values for each are &gt;= 0 and &lt;= 255.
+ *
+ * @typedef {Object} Color
+ * @property {number} r - The amount of red in the color.
+ * @property {number} g - The amount of green in the color.
+ * @property {number} b - The amount of blue in the color.
+ */</span>
+
+<span class="cm">/**
+ * A single object present within a particular frame or image.
+ *
+ * @typedef {Object} FrameObject
+ * @property {string} objectType - The type of the object.
+ * @property {Box} boundary - The bounding box of the object, defining its location within the frame.
+ * @property {Object.&lt;string, Position&gt;} keypoints - A map of the name of a keypoint, to its location within the frame.
+ */</span>
+
+<span class="cm">/**
+ * The two-dimensional coordinates indicating the location of something.
+ *
+ * @typedef {Object} Position
+ * @property {number} x - The x coordinate of the position.
+ * @property {number} y - The y coordinate of the position.
+ * @property {number} confidence - The confidence Guru has of the accuracy of this position. 0.0 implies no confidence, 1.0 implies complete confidence.
+ */</span>
+</code></pre></div>
+<p>Documented here are common types that are used across each of the
+<code>Process</code>, <code>Render</code>, and <code>Analyze</code> functions.</p>
 
       </div>
       <div class="dark-box">
