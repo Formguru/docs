@@ -158,11 +158,9 @@ The output of this function will be the analysis result of the video. It will be
 from the [Get Analysis](https://docs.getguru.fitness/#get-analysis) endpoint when using
 server-side processing, or as the output of the SDK when performing on-device processing.
 
+> Example implementation that reduces the FrameResults to an array of unique object types found across the video
+
 ```javascript
-/**
- * Example implementation that reduces the FrameResults to an array of unique 
- * object types found across the video
- */
 async function analyzeVideo(frameResults) {
 	const frameObjectTypes = frameResults.map((frameResult) => {
 		return frameResult.returnValue.objects.map((object) => {
