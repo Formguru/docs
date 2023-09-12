@@ -1311,11 +1311,11 @@ entire video.</p>
 <p>The output of this function will be the analysis result of the video. It will be accessible
 from the <a href="https://docs.getguru.fitness/#get-analysis">Get Analysis</a> endpoint when using
 server-side processing, or as the output of the SDK when performing on-device processing.</p>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
- * Example implementation that reduces the FrameResults to an array of unique 
- * object types found across the video
- */</span>
-<span class="k">async</span> <span class="kd">function</span> <span class="nx">analyzeVideo</span><span class="p">(</span><span class="nx">frameResults</span><span class="p">)</span> <span class="p">{</span>
+
+<blockquote>
+<p>Example implementation that reduces the FrameResults to an array of unique object types found across the video</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">analyzeVideo</span><span class="p">(</span><span class="nx">frameResults</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">frameObjectTypes</span> <span class="o">=</span> <span class="nx">frameResults</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">frameResult</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">frameResult</span><span class="p">.</span><span class="nx">returnValue</span><span class="p">.</span><span class="nx">objects</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="k">return</span> <span class="nx">object</span><span class="p">.</span><span class="nx">objectType</span><span class="p">;</span>
