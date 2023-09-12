@@ -1,4 +1,4 @@
-# Errors
+## Errors
 
 The Guru API uses the following error globally across all endpoints:
 

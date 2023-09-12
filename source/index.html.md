@@ -12,6 +12,7 @@ toc_footers:
 
 includes:
   - errors
+  - guru.js
 
 search: true
 
@@ -22,14 +23,16 @@ meta:
     content: Documentation for the Guru API
 ---
 
-# Introduction
+# API
+
+## Introduction
 
 Welcome to the Guru API. This API allows you to upload and perform analysis on your workouts and exercise.
 See below to find out how to authenticate your calls and start working with the API.
 
 If you would like to integrate and require assistance then please [contact us](mailto:support@getguru.fitness).
 
-# Authentication
+## Authentication
 
 Authentication with the Guru API occurs using OAuth tokens. You must include your authentication token as a header on each request you make:
 
@@ -64,7 +67,7 @@ Once you have your access credentials, the authentication flow will be:
 See the example on this page for working code to perform the credential exchange.
 See [here](https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) for more details on implementing the Client-Credential flow.
 
-# Videos
+## Videos
 
 Uploading a video for analysis is a three-step process:
 
@@ -74,7 +77,7 @@ Uploading a video for analysis is a three-step process:
 
 See below for details on each individual API call.
 
-## Create Video
+### Create Video
 
 ```javascript
 axios({
@@ -197,7 +200,7 @@ upload_response = upload(video_path, create_response)
 
 `POST https://api.getguru.fitness/videos`
 
-### Request
+#### Request
 
 Parameter | Required | Default | Description
 --------- | ------- | ------- | -----------
@@ -219,7 +222,7 @@ The currently accepted values for `domain` and `activity` are:
  running | sprint
  yoga | downward_dog
 
-### Response
+#### Response
 The response is JSON and contains the following data:
 
 Field | Description
@@ -228,7 +231,7 @@ id | Unique identifier for your video. You will use it to make calls to the API 
 url | Location to which your video content will be uploaded. This upload must be `multipart/form-data` encoded.
 fields | The signing fields which must be included in your form when you upload the video. Take a look at the example to see how to combine these fields with your video content.
 
-## Get Video
+### Get Video
 
 ```javascript
 axios({
@@ -243,14 +246,14 @@ axios({
 
 `GET https://api.getguru.fitness/videos/{id}?include=j2p,analysis`
 
-### Request
+#### Request
 
 Parameter | Required | Default | Description
 --------- | ------- | ------- | -----------
 id | Yes | None | The ID of the video you wish to fetch data for.
 include | No | None | A comma-separated list of additional fields you wish to return. Accepted values are `j2p`, `analysis`, and `objects`. 
 
-### Response
+#### Response
 The response is JSON and contains the following data:
 
 Field | Description
@@ -271,7 +274,7 @@ Type | Description
 skeleton | Contains a wireframe drawing of the joints and major landmarks identified on the person.
 all | Contains all supported overlay elements, including wireframes, rep counting, and analytics about the movement.
 
-## Update Video
+### Update Video
 
 ```javascript
 axios({
@@ -290,7 +293,7 @@ axios({
 
 `PUT https://api.getguru.fitness/videos/{id}`
 
-### Request
+#### Request
 
 The request payload should be in a JSON-encoded body. All of the fields are optional.
 If a field is omitted, then the existing value will be preserved.
@@ -301,10 +304,10 @@ repCount | No | None | The number of reps that were performed in the video.
 domain | No | None | The category of exercise being performed in the video. See the table in Create Video for accepted values.
 activity | No | None | The movement being performed in the video. See the table in Create Video for accepted values.
 
-### Response
+#### Response
 The response is JSON and contains the ID of the video.
 
-## Get Analysis
+### Get Analysis
 
 ```javascript
 axios({
@@ -344,13 +347,13 @@ axios({
 
 `GET https://api.getguru.fitness/videos/{id}/analysis`
 
-### Request
+#### Request
 
 Parameter | Required | Default | Description
 --------- | ------- | ------- | -----------
 id | Yes | None | The ID of the video you wish to fetch analysis for.
 
-### Response
+#### Response
 The response is JSON and contains the following data:
 
 Field | Description
@@ -373,7 +376,7 @@ Value | Description
 ------ | ----------
 `LOW_QUALITY_POSE_ESTIMATE` | Guru couldn't confidently detect the body's position throughout the video
 
-### Details - Sprints
+#### Details - Sprints
 
 For sprints, the analysis field contains some additional fields:
 
@@ -383,7 +386,7 @@ fieldMarkers | Only present if the runner is on an American football field with 
 reps | A list containing one entry for each stride. A "stride" begins when the toe leaves the ground and ends when the same foot contacts the ground. See below for details on the fields in each rep.
 runnerProgress | A list which represents a time-series of the distance the runner has traveled. Each entry in the list contains three fields: `distanceFromStart` (in meters), `frameIndex` and `timestamp` (in milliseconds). Note that `distanceFromStart` is negative when the runner hasn't yet crossed the starting line (e.g., if the runner is 1 meter _behind_ the starting line 1 second into the video, then `distanceFromStart=-1` @ `timestamp=1000`)
 
-#### Field Markers
+##### Field Markers
 
 The `fieldMarkers` object has 4 possible keys: `startLine`, `middleLine`,
 `finishLine`, and `cones`. The start, middle, and finish lines correspond to 0,
@@ -396,7 +399,7 @@ type | Either `YARD_LINE` or `CONE`
 position | Contains fields `x1`, `y1`, `x2`, and `y2`. If `YARD_LINE`, these fields represent the unnormalized coordinates of the line segment. If `CONE`, these fields represent a bounding-box that circumscribes the cone.
 frame_idx | The frame index of the video corresponding to the detection timestamp: The timestamp (in milliseconds) corresponding to the detection
 
-#### Reps
+##### Reps
 
 Each entry in `reps` corresponds to a stride and contains the following fields:
 
@@ -420,7 +423,7 @@ STRIDE_PEAK_EXTENSION_ANGLE | The peak extension angle of the leg during the str
 STRIDE_PEAK_EXTENSION_ANGLE_TIMESTAMP | The timestamp at which the leg reaches the peak extension angle
 
 
-## Get Joint Data
+### Get Joint Data
 
 ```javascript
 axios({
@@ -495,13 +498,13 @@ axios({
 
 `GET https://api.getguru.fitness/videos/{id}/j2p`
 
-### Request
+#### Request
 
 Parameter | Required | Default | Description
 --------- | ------- | ------- | -----------
 id | Yes | None | The ID of the video you wish to fetch joint-to-point (j2p) for.
 
-### Response
+#### Response
 The response is JSON and contains the following data:
 
 Field | Description
