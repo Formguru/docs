@@ -1302,18 +1302,8 @@ output video, using information from the output of <code>Process</code>.</p>
  * @property {*} returnValue - The value that was returned from the Process function for this frame.
  */</span>
 </code></pre></div>
-<p>The Analyze function receives one argument, an Array of <code>FrameResult</code> objects. 
-This function can perform any kind of analysis required on the results of each Frame
-to perform complex reasoning. It could, for example, count the number of repetitions
-of a particular movement, or de-duplicate the names of unique objects found across the
-entire video.</p>
-
-<p>The output of this function will be the analysis result of the video. It will be accessible
-from the <a href="https://docs.getguru.fitness/#get-analysis">Get Analysis</a> endpoint when using
-server-side processing, or as the output of the SDK when performing on-device processing.</p>
-
 <blockquote>
-<p>Example implementation that reduces the FrameResults to an array of unique object types found across the video</p>
+<p>Example implementation that reduces the FrameResults to an array of unique object types found across the video.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">analyzeVideo</span><span class="p">(</span><span class="nx">frameResults</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">frameObjectTypes</span> <span class="o">=</span> <span class="nx">frameResults</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">frameResult</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -1324,7 +1314,67 @@ server-side processing, or as the output of the SDK when performing on-device pr
 
     <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="k">new</span> <span class="nb">Set</span><span class="p">(</span><span class="nx">frameObjectTypes</span><span class="p">));</span>
 <span class="p">}</span>
-</code></pre></div><h2 id='appendix-a'>Appendix A</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
+</code></pre></div>
+<blockquote>
+<p>Example implementation that counts reps.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">analyzeVideo</span><span class="p">(</span><span class="nx">frameResults</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">personId</span> <span class="o">=</span> <span class="nx">frameResults</span><span class="p">.</span><span class="nx">objectIds</span><span class="p">(</span><span class="dl">"</span><span class="s2">person</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">const</span> <span class="nx">personFrames</span> <span class="o">=</span> <span class="nx">frameResults</span><span class="p">.</span><span class="nx">objectFrames</span><span class="p">(</span><span class="nx">personId</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">reps</span> <span class="o">=</span> <span class="nx">MovementAnalyzer</span><span class="p">.</span><span class="nx">repsByKeypointDistance</span><span class="p">(</span><span class="nx">personFrames</span><span class="p">,</span> <span class="nx">Keypoint</span><span class="p">.</span><span class="nx">rightHip</span><span class="p">,</span> <span class="nx">Keypoint</span><span class="p">.</span><span class="nx">rightAnkle</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">reps</span><span class="dl">"</span><span class="p">:</span> <span class="nx">reps</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The Analyze function receives one argument, an Array of <code>FrameResult</code> objects. 
+This function can perform any kind of analysis required on the results of each Frame
+to perform complex reasoning. It could, for example, count the number of repetitions
+of a particular movement, or de-duplicate the names of unique objects found across the
+entire video.</p>
+
+<p>The output of this function will be the analysis result of the video. It will be accessible
+from the <a href="https://docs.getguru.fitness/#get-analysis">Get Analysis</a> endpoint when using
+server-side processing, or as the output of the SDK when performing on-device processing.</p>
+
+<p>The Array of <code>FrameResult</code>s is augmented by a number of useful methods for performing analysis:</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>frameResults.objectFrames(objectId)</code></td>
+<td>Given the ID of an object, fetch the <code>FrameObject</code>s that describe its movement throughout the video.</td>
+</tr>
+<tr>
+<td><code>frameResults.objectIds(objectType)</code></td>
+<td>Given a type of object (e.g. <code>person</code>), fetch the IDs of each instance found of that type in the video.</td>
+</tr>
+<tr>
+<td><code>frameResults.resultArray()</code></td>
+<td>Return an array of the raw results from each call to your Process code.</td>
+</tr>
+</tbody></table>
+
+<p>Guru.js also provides a library of domain-specific analysis functions to help perform common operations.</p>
+<h3 id='movementanalyzer'>MovementAnalyzer</h3>
+<p>This Analyzer provides methods related to human movement. It is useful for building fitness or sport-focused apps.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>MovementAnalyzer.repsByKeypointDistance(frameObjects, keypoint1, keypoint2)</code></td>
+<td>Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use <code>Keypoint.rightHip</code> and <code>Keypoint.rightAnkle</code> to count the number of squat reps in a video.</td>
+</tr>
+</tbody></table>
+<h2 id='appendix-a'>Appendix A</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="cm">/**
  * A two-dimensional box, indicating the bounds of something.
  *
  * @typedef {Object} Box
