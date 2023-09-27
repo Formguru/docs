@@ -148,17 +148,7 @@ async function analyzeVideo(frameResults) {
  */
 ```
 
-The Analyze function receives one argument, an Array of `FrameResult` objects. 
-This function can perform any kind of analysis required on the results of each Frame
-to perform complex reasoning. It could, for example, count the number of repetitions
-of a particular movement, or de-duplicate the names of unique objects found across the
-entire video.
-
-The output of this function will be the analysis result of the video. It will be accessible
-from the [Get Analysis](https://docs.getguru.fitness/#get-analysis) endpoint when using
-server-side processing, or as the output of the SDK when performing on-device processing.
-
-> Example implementation that reduces the FrameResults to an array of unique object types found across the video
+> Example implementation that reduces the FrameResults to an array of unique object types found across the video.
 
 ```javascript
 async function analyzeVideo(frameResults) {
@@ -171,6 +161,47 @@ async function analyzeVideo(frameResults) {
 	return Array.from(new Set(frameObjectTypes));
 }
 ```
+
+> Example implementation that counts reps.
+
+```javascript
+async function analyzeVideo(frameResults) {
+	const personId = frameResults.objectIds("person")[0];
+	const personFrames = frameResults.objectFrames(personId);
+	const reps = MovementAnalyzer.repsByKeypointDistance(personFrames, Keypoint.rightHip, Keypoint.rightAnkle);
+	return {
+		"reps": reps
+	};
+}
+```
+
+The Analyze function receives one argument, an Array of `FrameResult` objects. 
+This function can perform any kind of analysis required on the results of each Frame
+to perform complex reasoning. It could, for example, count the number of repetitions
+of a particular movement, or de-duplicate the names of unique objects found across the
+entire video.
+
+The output of this function will be the analysis result of the video. It will be accessible
+from the [Get Analysis](https://docs.getguru.fitness/#get-analysis) endpoint when using
+server-side processing, or as the output of the SDK when performing on-device processing.
+
+The Array of `FrameResult`s is augmented by a number of useful methods for performing analysis:
+
+Method | Description
+------ | ------- |
+`frameResults.objectFrames(objectId)` | Given the ID of an object, fetch the `FrameObject`s that describe its movement throughout the video.
+`frameResults.objectIds(objectType)` | Given a type of object (e.g. `person`), fetch the IDs of each instance found of that type in the video.
+`frameResults.resultArray()` | Return an array of the raw results from each call to your Process code.
+ 
+Guru.js also provides a library of domain-specific analysis functions to help perform common operations.
+
+### MovementAnalyzer
+
+This Analyzer provides methods related to human movement. It is useful for building fitness or sport-focused apps.
+
+Method | Description
+------ | ------- |
+`MovementAnalyzer.repsByKeypointDistance(frameObjects, keypoint1, keypoint2)` | Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video.
 
 ## Appendix A
 ```javascript
