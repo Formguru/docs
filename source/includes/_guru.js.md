@@ -201,7 +201,7 @@ This Analyzer provides methods related to human movement. It is useful for build
 
 Method | Description
 ------ | ------- |
-`MovementAnalyzer.repsByKeypointDistance(frameObjects, keypoint1, keypoint2)` | Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video.
+`MovementAnalyzer.repsByKeypointDistance(frameObjects, keypoint1, keypoint2, {keypointsContract: true})` | Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video. `keypointsContract` is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.
 
 ## Appendix A
 ```javascript
