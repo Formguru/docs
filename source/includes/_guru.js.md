@@ -201,7 +201,19 @@ This Analyzer provides methods related to human movement. It is useful for build
 
 Method | Description
 ------ | ------- |
-`MovementAnalyzer.repsByKeypointDistance(frameObjects, keypoint1, keypoint2, {keypointsContract: true})` | Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video. `keypointsContract` is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.
+`MovementAnalyzer.repsByKeypointDistance(personFrames, keypoint1, keypoint2, {keypointsContract: true})` | Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video. `keypointsContract` is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.
+`MovementAnalyzer.personMostlyFacing(personFrames)` | Given the frames of a person, determine which direction they were mostly facing during the course of the video. Returns a value from the `ObjectFacing` enum.
+`MovementAnalyzer.personMostlyStanding(personFrames)` | Given the frames of a person, determine whether they were standing for the majority of the video. Returns a boolean.
+
+`ObjectFacing` Enum | Description
+------ | ------- |
+Away | Object facing away from the camera.
+Down | Object facing towards the bottom of the frame.
+Left | Object facing the left-side of the frame.
+Right | Object facing the right-side of the frame.
+Toward | Object facing towards the camera.
+Unknown | Object direction unknown.
+Up | Object facing towards the top of the frame.
 
 ## Appendix A
 ```javascript
