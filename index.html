@@ -1265,7 +1265,25 @@ This object provides an easy-to-use interface to the Guru AI Platform.</p>
    * @param {number} keypointRadius - The radius, in pixels, of the circles representing the keypoints. Defaults to 5.
    */</span>
   <span class="nx">drawSkeleton</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">lineColor</span><span class="p">,</span> <span class="nx">keypointColor</span><span class="p">,</span> <span class="nx">lineWidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">keypointRadius</span> <span class="o">=</span> <span class="mi">5</span><span class="p">);</span>
-<span class="p">}</span>
+
+  <span class="cm">/**
+   * Draws text at a specific location on the canvas.
+   *
+   * @param {string} text - The text to draw.
+   * @param {number} x - The x-coordinate of the location, &gt;= 0 and &lt;= 1. 0 is the left-hand side of the canvas.
+   * @param {number} y - The y-coordinate of the location, &gt;= 0 and &lt;= 1. 0 is the top-side of the canvas.
+   * @param {Color} color - The color of the text.
+   * @param {number} maxWidth - Optional, the maximum width of the text in pixels, after which it will wrap. Default 1000.
+   * @param {number} fontSize - Optional, the size of the font. Default 24.
+   * @param {number} padding - Optional, the amount of padding to apply to the location of the text from its location. Default 0.
+   * @param {number} alpha - Optional, how transparent the font should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */</span>
+  <span class="nx">drawText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">maxWidth</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="nx">fontSize</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>
+    <span class="nx">padding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="p">{});</span>
 </code></pre></div>
 <p>The Render function receives two arguments: one of type <code>FrameCanvas</code>, defined below, 
 and a second which is the output of the <code>Process</code> function for that frame. 
