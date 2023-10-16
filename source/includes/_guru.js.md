@@ -106,7 +106,25 @@ class FrameCanvas {
    * @param {number} keypointRadius - The radius, in pixels, of the circles representing the keypoints. Defaults to 5.
    */
   drawSkeleton(object, lineColor, keypointColor, lineWidth = 2, keypointRadius = 5);
-}
+
+  /**
+   * Draws text at a specific location on the canvas.
+   *
+   * @param {string} text - The text to draw.
+   * @param {number} x - The x-coordinate of the location, >= 0 and <= 1. 0 is the left-hand side of the canvas.
+   * @param {number} y - The y-coordinate of the location, >= 0 and <= 1. 0 is the top-side of the canvas.
+   * @param {Color} color - The color of the text.
+   * @param {number} maxWidth - Optional, the maximum width of the text in pixels, after which it will wrap. Default 1000.
+   * @param {number} fontSize - Optional, the size of the font. Default 24.
+   * @param {number} padding - Optional, the amount of padding to apply to the location of the text from its location. Default 0.
+   * @param {number} alpha - Optional, how transparent the font should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */
+  drawText(text, x, y, color, {
+    maxWidth = 1000,
+    fontSize = 24,
+    padding = 0,
+    alpha = 1.0,
+  } = {});
 ```
 
 The Render function receives two arguments: one of type `FrameCanvas`, defined below, 
