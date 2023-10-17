@@ -83,6 +83,9 @@ async function processFrame(frame) {
 function renderFrame(frameCanvas, processResult) {
 }
 
+/**
+ * The canvas for a frame, onto which draw operations can be made. This is passed as input to renderFrame().
+ */
 class FrameCanvas {
 
   /**
@@ -94,6 +97,53 @@ class FrameCanvas {
    * @return {FrameCanvas} This FrameCanvas, that can be used to chain calls.
    */
   drawBoundingBox(object, color, width = 2);
+
+  /**
+   * Draws a circle on the canvas.
+   *
+   * @param {Position} position - The position of the center of the circle.
+   * @param {number} radius - The radius of the circle, in pixels.
+   * @param {Color} color - The color of the circle.
+   * @param {boolean} filled - True if the circle should be filled in. Default true.
+   * @param {number} width - If not filled, then this is the width of the circle boundary in pixels. Default 2.
+   * @param {number} alpha - Optional, how transparent the circle should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */
+  drawCircle(position, radius, color, {
+    filled = true,
+    width = 2,
+    alpha = 1.0,
+  } = {});
+
+  /**
+   * Draws a line between two points on the canvas.
+   *
+   * @param {Position} from - The position to draw from.
+   * @param {Position} to - The position to draw to.
+   * @param {Color} color - The color of the line.
+   * @param {number} width - Optional, the width of the line in pixels. Default 2.
+   * @param {number} alpha - Optional, how transparent the line should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */
+  drawLine(from, to, color, {
+    width = 2,
+    alpha = 1.0,
+  } = {});
+
+  /**
+   * Draws a rectangle on the canvas. The rectangle may have a background color, or be transparent.
+   *
+   * @param {Position} topLeft - The position of the top-left corner of the rectangle.
+   * @param {Position} bottomRight - The position of the bottom-right corner of the rectangle.
+   * @param {Color} borderColor - Optional, the color of border of the rectangle. Either this or backgroundColor must be present.
+   * @param {Color} backgroundColor - Optional, the color of background of the rectangle. If omitted then the background will be transparent. Either this or backgroundColor must be present.
+   * @param {number} width - Optional, the width of the border in pixels. Default 2.
+   * @param {number} alpha - Optional, how transparent the rectangle should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */
+  drawRect(topLeft, bottomRight, {
+    borderColor = undefined,
+    backgroundColor = undefined,
+    width = 2,
+    alpha = 1.0,
+  } = {});
 
   /**
    * Draw the skeleton for the given object onto the frame. Note that the object must have its keypoints
@@ -111,15 +161,14 @@ class FrameCanvas {
    * Draws text at a specific location on the canvas.
    *
    * @param {string} text - The text to draw.
-   * @param {number} x - The x-coordinate of the location, >= 0 and <= 1. 0 is the left-hand side of the canvas.
-   * @param {number} y - The y-coordinate of the location, >= 0 and <= 1. 0 is the top-side of the canvas.
+   * @param {Position} position - The location to draw at. 0,0 is the top-left corner.
    * @param {Color} color - The color of the text.
    * @param {number} maxWidth - Optional, the maximum width of the text in pixels, after which it will wrap. Default 1000.
    * @param {number} fontSize - Optional, the size of the font. Default 24.
    * @param {number} padding - Optional, the amount of padding to apply to the location of the text from its location. Default 0.
    * @param {number} alpha - Optional, how transparent the font should be. 0 is invisible, 1 is fully visible. Default is 1.
    */
-  drawText(text, x, y, color, {
+  drawText(text, position, color, {
     maxWidth = 1000,
     fontSize = 24,
     padding = 0,
