@@ -217,11 +217,11 @@ Guru.js also provides a library of domain-specific analysis functions to help pe
 
 This Analyzer provides methods related to human movement. It is useful for building fitness or sport-focused apps.
 
-Method | Description
------- | ------- |
-`MovementAnalyzer.repsByKeypointDistance(personFrames, keypoint1, keypoint2, {keypointsContract: true})` | Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video. `keypointsContract` is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.
-`MovementAnalyzer.personMostlyFacing(personFrames)` | Given the frames of a person, determine which direction they were mostly facing during the course of the video. Returns a value from the `ObjectFacing` enum.
-`MovementAnalyzer.personMostlyStanding(personFrames)` | Given the frames of a person, determine whether they were standing for the majority of the video. Returns a boolean.
+Method | Parameters | Description
+------ | ------- | ------- |
+`repsByKeypointDistance` | <ol><li>personFrames</li><li>keypoint1</li><li>keypoint2</li><li>{keypointsContract: true, threshold: 0.2, smoothing: 2.0, ignoreStartMs: null, ignoreEndMs: null}</li></ol> | <p>Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use `Keypoint.rightHip` and `Keypoint.rightAnkle` to count the number of squat reps in a video.</p><p>`keypointsContract` is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.</p><p>`threshold` and `smoothing` control how reps are identified, tuning them may give better results for your movement.</p><p>`ignoreStartMs` and `ignoreEndMs` allow you to exclude time at the start or end of the video for rep counting. If null, then Guru will attempt to guess the times.</p>
+`personMostlyFacing` | <ol><li>personFrames</li></ol> | Given the frames of a person, determine which direction they were mostly facing during the course of the video. Returns a value from the `ObjectFacing` enum.
+`personMostlyStanding` | <ol><li>personFrames</li></ol> | Given the frames of a person, determine whether they were standing for the majority of the video. Returns a boolean.
 
 `ObjectFacing` Enum | Description
 ------ | ------- |
