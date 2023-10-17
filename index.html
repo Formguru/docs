@@ -1384,19 +1384,23 @@ server-side processing, or as the output of the SDK when performing on-device pr
 <table><thead>
 <tr>
 <th>Method</th>
+<th>Parameters</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td><code>MovementAnalyzer.repsByKeypointDistance(personFrames, keypoint1, keypoint2, {keypointsContract: true})</code></td>
-<td>Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use <code>Keypoint.rightHip</code> and <code>Keypoint.rightAnkle</code> to count the number of squat reps in a video. <code>keypointsContract</code> is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.</td>
+<td><code>repsByKeypointDistance</code></td>
+<td><ol><li>personFrames</li><li>keypoint1</li><li>keypoint2</li><li>{keypointsContract: true, threshold: 0.2, smoothing: 2.0, ignoreStartMs: null, ignoreEndMs: null}</li></ol></td>
+<td><p>Given the frames of a person, find repetitions of a movement defined by the movement between two keypoints. For example, you could use <code>Keypoint.rightHip</code> and <code>Keypoint.rightAnkle</code> to count the number of squat reps in a video.</p><p><code>keypointsContract</code> is an optional parameter that indicates whether the distance between the keypoints will contract during a rep. Set to false if the keypoint distance will instead expand. Defaults true.</p><p><code>threshold</code> and <code>smoothing</code> control how reps are identified, tuning them may give better results for your movement.</p><p><code>ignoreStartMs</code> and <code>ignoreEndMs</code> allow you to exclude time at the start or end of the video for rep counting. If null, then Guru will attempt to guess the times.</p></td>
 </tr>
 <tr>
-<td><code>MovementAnalyzer.personMostlyFacing(personFrames)</code></td>
+<td><code>personMostlyFacing</code></td>
+<td><ol><li>personFrames</li></ol></td>
 <td>Given the frames of a person, determine which direction they were mostly facing during the course of the video. Returns a value from the <code>ObjectFacing</code> enum.</td>
 </tr>
 <tr>
-<td><code>MovementAnalyzer.personMostlyStanding(personFrames)</code></td>
+<td><code>personMostlyStanding</code></td>
+<td><ol><li>personFrames</li></ol></td>
 <td>Given the frames of a person, determine whether they were standing for the majority of the video. Returns a boolean.</td>
 </tr>
 </tbody></table>
