@@ -1242,6 +1242,9 @@ This object provides an easy-to-use interface to the Guru AI Platform.</p>
 <span class="kd">function</span> <span class="nx">renderFrame</span><span class="p">(</span><span class="nx">frameCanvas</span><span class="p">,</span> <span class="nx">processResult</span><span class="p">)</span> <span class="p">{</span>
 <span class="p">}</span>
 
+<span class="cm">/**
+ * The canvas for a frame, onto which draw operations can be made. This is passed as input to renderFrame().
+ */</span>
 <span class="kd">class</span> <span class="nx">FrameCanvas</span> <span class="p">{</span>
 
   <span class="cm">/**
@@ -1253,6 +1256,53 @@ This object provides an easy-to-use interface to the Guru AI Platform.</p>
    * @return {FrameCanvas} This FrameCanvas, that can be used to chain calls.
    */</span>
   <span class="nx">drawBoundingBox</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">);</span>
+
+  <span class="cm">/**
+   * Draws a circle on the canvas.
+   *
+   * @param {Position} position - The position of the center of the circle.
+   * @param {number} radius - The radius of the circle, in pixels.
+   * @param {Color} color - The color of the circle.
+   * @param {boolean} filled - True if the circle should be filled in. Default true.
+   * @param {number} width - If not filled, then this is the width of the circle boundary in pixels. Default 2.
+   * @param {number} alpha - Optional, how transparent the circle should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */</span>
+  <span class="nx">drawCircle</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">filled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="p">{});</span>
+
+  <span class="cm">/**
+   * Draws a line between two points on the canvas.
+   *
+   * @param {Position} from - The position to draw from.
+   * @param {Position} to - The position to draw to.
+   * @param {Color} color - The color of the line.
+   * @param {number} width - Optional, the width of the line in pixels. Default 2.
+   * @param {number} alpha - Optional, how transparent the line should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */</span>
+  <span class="nx">drawLine</span><span class="p">(</span><span class="k">from</span><span class="p">,</span> <span class="nx">to</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="p">{});</span>
+
+  <span class="cm">/**
+   * Draws a rectangle on the canvas. The rectangle may have a background color, or be transparent.
+   *
+   * @param {Position} topLeft - The position of the top-left corner of the rectangle.
+   * @param {Position} bottomRight - The position of the bottom-right corner of the rectangle.
+   * @param {Color} borderColor - Optional, the color of border of the rectangle. Either this or backgroundColor must be present.
+   * @param {Color} backgroundColor - Optional, the color of background of the rectangle. If omitted then the background will be transparent. Either this or backgroundColor must be present.
+   * @param {number} width - Optional, the width of the border in pixels. Default 2.
+   * @param {number} alpha - Optional, how transparent the rectangle should be. 0 is invisible, 1 is fully visible. Default is 1.
+   */</span>
+  <span class="nx">drawRect</span><span class="p">(</span><span class="nx">topLeft</span><span class="p">,</span> <span class="nx">bottomRight</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">borderColor</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">backgroundColor</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">,</span>
+    <span class="nx">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="p">{});</span>
 
   <span class="cm">/**
    * Draw the skeleton for the given object onto the frame. Note that the object must have its keypoints
@@ -1270,15 +1320,14 @@ This object provides an easy-to-use interface to the Guru AI Platform.</p>
    * Draws text at a specific location on the canvas.
    *
    * @param {string} text - The text to draw.
-   * @param {number} x - The x-coordinate of the location, &gt;= 0 and &lt;= 1. 0 is the left-hand side of the canvas.
-   * @param {number} y - The y-coordinate of the location, &gt;= 0 and &lt;= 1. 0 is the top-side of the canvas.
+   * @param {Position} position - The location to draw at. 0,0 is the top-left corner.
    * @param {Color} color - The color of the text.
    * @param {number} maxWidth - Optional, the maximum width of the text in pixels, after which it will wrap. Default 1000.
    * @param {number} fontSize - Optional, the size of the font. Default 24.
    * @param {number} padding - Optional, the amount of padding to apply to the location of the text from its location. Default 0.
    * @param {number} alpha - Optional, how transparent the font should be. 0 is invisible, 1 is fully visible. Default is 1.
    */</span>
-  <span class="nx">drawText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">drawText</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="nx">position</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">maxWidth</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
     <span class="nx">fontSize</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span>
     <span class="nx">padding</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
