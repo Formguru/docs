@@ -54,7 +54,7 @@ request(options, function (error, response, body) {
 ```
 
 Your service will obtain its authentication token using an OAuth Client-Credential Flow.
-If you are a newly-integrating service then you will need to create an account with Guru via the [Console](https://console.getguru.fitness) to access your credentials.
+If you are a newly-integrating service then you will need to create an account with Guru via the [Console](https://console.getguru.ai) to access your credentials.
 Please see the [Getting Started with Guru](https://blog.getguru.fitness/2022/03/24/getting-started-with-guru.html) guide for more details on account creation.
 
 Once you have your access credentials, the authentication flow will be:

@@ -8,7 +8,7 @@ write once and run anywhere.
 Before you can begin writing Guru.js, you will need to create a Schema.
 A `Schema` is a configuration that holds all the information Guru
 needs to process a video. You can create a new Schema from
-the [Guru Console](https://console.getguru.fitness/schemas/new).
+the [Guru Console](https://console.getguru.ai/schemas/new).
 We recommend starting from a template to get up and running faster.
 
 A Schema holds three separate Guru.js functions:
