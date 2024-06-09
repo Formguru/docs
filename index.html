@@ -360,7 +360,7 @@
 <p>Welcome to the Guru API. This API allows you to upload and perform analysis on your workouts and exercise.
 See below to find out how to authenticate your calls and start working with the API.</p>
 
-<p>If you would like to integrate and require assistance then please <a href="mailto:support@getguru.fitness">contact us</a>.</p>
+<p>If you would like to integrate and require assistance then please <a href="mailto:support@getguru.ai">contact us</a>.</p>
 <h2 id='authentication'>Authentication</h2>
 <p>Authentication with the Guru API occurs using OAuth tokens. You must include your authentication token as a header on each request you make:</p>
 
@@ -370,7 +370,7 @@ See below to find out how to authenticate your calls and start working with the 
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span> <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://customer-console-prod.auth.us-west-2.amazoncognito.com/oauth2/token</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">content-type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/x-www-form-urlencoded</span><span class="dl">'</span> <span class="p">},</span>
-  <span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">grant_type=client_credentials&amp;client_id=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_id</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;client_secret=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_secret</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;scope=https://api.getguru.fitness/default</span><span class="dl">'</span> <span class="p">};</span>
+  <span class="na">body</span><span class="p">:</span> <span class="dl">'</span><span class="s1">grant_type=client_credentials&amp;client_id=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_id</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;client_secret=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">client_secret</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&amp;scope=https://api.getguru.ai/default</span><span class="dl">'</span> <span class="p">};</span>
 
 <span class="nx">request</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
@@ -405,7 +405,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <p>See below for details on each individual API call.</p>
 <h3 id='create-video'>Create Video</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.ai/videos</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">},</span>
@@ -439,7 +439,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </code></pre></div><div class="highlight"><pre class="highlight typescript tab-typescript"><code><span class="c1">//assuming variable 'file' of type Express.Multer.File</span>
 <span class="nx">axios</span><span class="p">({</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">post</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.ai/videos</span><span class="dl">'</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
   <span class="p">},</span>
@@ -481,7 +481,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 
 <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">access_token</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">rep_count</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
-        <span class="s">"https://api.getguru.fitness/videos"</span><span class="p">,</span>
+        <span class="s">"https://api.getguru.ai/videos"</span><span class="p">,</span>
         <span class="n">json</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s">"filename"</span><span class="p">:</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">basename</span><span class="p">(</span><span class="n">video_path</span><span class="p">),</span>
             <span class="s">"size"</span><span class="p">:</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">video_path</span><span class="p">),</span>
@@ -514,7 +514,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 <span class="n">upload_response</span> <span class="o">=</span> <span class="n">upload</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="n">create_response</span><span class="p">)</span>
 
 </code></pre></div>
-<p><code>POST https://api.getguru.fitness/videos</code></p>
+<p><code>POST https://api.getguru.ai/videos</code></p>
 <h4 id='request'>Request</h4>
 <table><thead>
 <tr>
@@ -618,7 +618,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </tr>
 </tbody></table>
 <h3 id='get-video'>Get Video</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
-    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.ai/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">}</span>
@@ -626,7 +626,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="c1">//...</span>
 <span class="p">});</span>
 </code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}?include=j2p,analysis</code></p>
+<p><code>GET https://api.getguru.ai/videos/{id}?include=j2p,analysis</code></p>
 <h4 id='request-2'>Request</h4>
 <table><thead>
 <tr>
@@ -711,7 +711,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
 </tbody></table>
 <h3 id='update-video'>Update Video</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
     <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">put</span><span class="dl">'</span><span class="p">,</span>
-    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.ai/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">},</span>
@@ -722,7 +722,7 @@ See <a href="https://auth0.com/docs/get-started/authentication-and-authorization
     <span class="c1">//...</span>
 <span class="p">});</span>
 </code></pre></div>
-<p><code>PUT https://api.getguru.fitness/videos/{id}</code></p>
+<p><code>PUT https://api.getguru.ai/videos/{id}</code></p>
 <h4 id='request-3'>Request</h4>
 <p>The request payload should be in a JSON-encoded body. All of the fields are optional.
 If a field is omitted, then the existing value will be preserved.</p>
@@ -757,7 +757,7 @@ If a field is omitted, then the existing value will be preserved.</p>
 <h4 id='response-3'>Response</h4>
 <p>The response is JSON and contains the ID of the video.</p>
 <h3 id='get-analysis'>Get Analysis</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
-    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/analysis</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.ai/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/analysis</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">}</span>
@@ -789,7 +789,7 @@ If a field is omitted, then the existing value will be preserved.</p>
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}/analysis</code></p>
+<p><code>GET https://api.getguru.ai/videos/{id}/analysis</code></p>
 <h4 id='request-4'>Request</h4>
 <table><thead>
 <tr>
@@ -968,7 +968,7 @@ the runner crosses first and the end line is the line that they cross last.</p>
 </tr>
 </tbody></table>
 <h3 id='get-joint-data'>Get Joint Data</h3><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">axios</span><span class="p">({</span>
-    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.fitness/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/j2p</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.getguru.ai/videos/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">videoId</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/j2p</span><span class="dl">'</span><span class="p">,</span>
     <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
         <span class="na">Authorization</span><span class="p">:</span> <span class="nx">token</span>
     <span class="p">}</span>
@@ -1035,7 +1035,7 @@ the runner crosses first and the end line is the line that they cross last.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>GET https://api.getguru.fitness/videos/{id}/j2p</code></p>
+<p><code>GET https://api.getguru.ai/videos/{id}/j2p</code></p>
 <h4 id='request-5'>Request</h4>
 <table><thead>
 <tr>
