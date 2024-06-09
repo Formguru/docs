@@ -30,7 +30,7 @@ meta:
 Welcome to the Guru API. This API allows you to upload and perform analysis on your workouts and exercise.
 See below to find out how to authenticate your calls and start working with the API.
 
-If you would like to integrate and require assistance then please [contact us](mailto:support@getguru.fitness).
+If you would like to integrate and require assistance then please [contact us](mailto:support@getguru.ai).
 
 ## Authentication
 
@@ -44,7 +44,7 @@ var request = require("request");
 var options = { method: 'POST',
   url: 'https://customer-console-prod.auth.us-west-2.amazoncognito.com/oauth2/token',
   headers: { 'content-type': 'application/x-www-form-urlencoded' },
-  body: 'grant_type=client_credentials&client_id=' + client_id + '&client_secret=' + client_secret + '&scope=https://api.getguru.fitness/default' };
+  body: 'grant_type=client_credentials&client_id=' + client_id + '&client_secret=' + client_secret + '&scope=https://api.getguru.ai/default' };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
@@ -82,7 +82,7 @@ See below for details on each individual API call.
 ```javascript
 axios({
     method: 'post',
-    url: 'https://api.getguru.fitness/videos',
+    url: 'https://api.getguru.ai/videos',
     headers: {
         Authorization: token
     },
@@ -119,7 +119,7 @@ axios({
 //assuming variable 'file' of type Express.Multer.File
 axios({
   method: 'post',
-  url: 'https://api.getguru.fitness/videos',
+  url: 'https://api.getguru.ai/videos',
   headers: {
     Authorization: token
   },
@@ -164,7 +164,7 @@ import requests
 
 def create(video_path, access_token, domain, activity, rep_count = 3):
     return requests.post(
-        "https://api.getguru.fitness/videos",
+        "https://api.getguru.ai/videos",
         json = {
             "filename": os.path.basename(video_path),
             "size": os.path.getsize(video_path),
@@ -198,7 +198,7 @@ upload_response = upload(video_path, create_response)
 
 ```
 
-`POST https://api.getguru.fitness/videos`
+`POST https://api.getguru.ai/videos`
 
 #### Request
 
@@ -235,7 +235,7 @@ fields | The signing fields which must be included in your form when you upload 
 
 ```javascript
 axios({
-    url: 'https://api.getguru.fitness/videos/' + videoId,
+    url: 'https://api.getguru.ai/videos/' + videoId,
     headers: {
         Authorization: token
     }
@@ -244,7 +244,7 @@ axios({
 });
 ```
 
-`GET https://api.getguru.fitness/videos/{id}?include=j2p,analysis`
+`GET https://api.getguru.ai/videos/{id}?include=j2p,analysis`
 
 #### Request
 
@@ -279,7 +279,7 @@ all | Contains all supported overlay elements, including wireframes, rep countin
 ```javascript
 axios({
     method: 'put',
-    url: 'https://api.getguru.fitness/videos/' + videoId,
+    url: 'https://api.getguru.ai/videos/' + videoId,
     headers: {
         Authorization: token
     },
@@ -291,7 +291,7 @@ axios({
 });
 ```
 
-`PUT https://api.getguru.fitness/videos/{id}`
+`PUT https://api.getguru.ai/videos/{id}`
 
 #### Request
 
@@ -311,7 +311,7 @@ The response is JSON and contains the ID of the video.
 
 ```javascript
 axios({
-    url: 'https://api.getguru.fitness/videos/' + videoId + '/analysis',
+    url: 'https://api.getguru.ai/videos/' + videoId + '/analysis',
     headers: {
         Authorization: token
     }
@@ -345,7 +345,7 @@ axios({
 }
 ```
 
-`GET https://api.getguru.fitness/videos/{id}/analysis`
+`GET https://api.getguru.ai/videos/{id}/analysis`
 
 #### Request
 
@@ -427,7 +427,7 @@ STRIDE_PEAK_EXTENSION_ANGLE_TIMESTAMP | The timestamp at which the leg reaches t
 
 ```javascript
 axios({
-    url: 'https://api.getguru.fitness/videos/' + videoId + '/j2p',
+    url: 'https://api.getguru.ai/videos/' + videoId + '/j2p',
     headers: {
         Authorization: token
     }
@@ -496,7 +496,7 @@ axios({
 }
 ```
 
-`GET https://api.getguru.fitness/videos/{id}/j2p`
+`GET https://api.getguru.ai/videos/{id}/j2p`
 
 #### Request
 
